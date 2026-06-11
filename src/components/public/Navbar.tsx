@@ -39,11 +39,9 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({ activePage, setActiv
               />
             </div>
             <span className="text-lg font-bold tracking-tight text-white hover:text-purple-400 transition-colors">
-              peet
+              Peet
             </span>
-            <span className="text-[9px] font-bold bg-purple-500/10 text-purple-400 px-1.5 py-0.5 rounded uppercase tracking-wider">
-              AI
-            </span>
+            
           </div>
 
           {/* Center Links - Slim & Compact */}

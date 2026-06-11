@@ -42,11 +42,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
               />
             </div>
             <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-purple-400 to-purple-600 dark:from-white dark:to-purple-300 bg-clip-text text-transparent">
-              peet
+              Peet
             </span>
-            <span className="text-[10px] font-semibold bg-purple-500/20 text-purple-600 dark:text-purple-300 px-1.5 py-0.5 rounded-md uppercase tracking-wider">
-              AI
-            </span>
+            
           </div>
 
           {/* Navigation Links */}
