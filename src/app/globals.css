@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #000000;
+    --foreground: #f4f4f5;
+  }
+}
+
+@theme {
+  --color-brand-primary: #a855f7;
+  --color-brand-secondary: #c084fc;
+  --color-brand-dark: #1e1b4b;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.35);
+}
+
+/* Pure Black Vercel-style background */
+body {
+  font-family: var(--font-inter), ui-sans-serif, system-ui;
+  background-color: #000000;
+  color: #f4f4f5;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit), ui-sans-serif, system-ui;
+}
+
+/* Premium Tech Dot Grid Background */
+.peet-bg {
+  min-height: 100vh;
+  background-color: #000000;
+  background-image: 
+    radial-gradient(rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px, 48px 48px;
+  background-position: 0 0, 12px 12px;
+  color: #f4f4f5;
+}
+
+/* Glassmorphism Panel: Clean, non-bulky, thin border */
+.glass-panel {
+  background-color: rgba(6, 6, 8, 0.7);
+  backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(168, 85, 247, 0.25);
+  background-color: rgba(10, 8, 14, 0.85);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Floating animation helper */
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Animated gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, #f4f4f5 10%, #c084fc 60%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glowing Neon Elements */
+.glow-ring {
+  position: relative;
+}
+.glow-ring::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, rgba(168, 85, 247, 0.4), rgba(192, 132, 252, 0.1));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.8;
+  filter: blur(4px);
+}
