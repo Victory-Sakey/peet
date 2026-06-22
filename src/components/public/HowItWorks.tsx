@@ -69,18 +69,18 @@ export const HowItWorks: React.FC = () => {
         <h2 className="text-3xl font-extrabold tracking-tight">
           How <span className="text-gradient">PEET Transforms</span> Hiring
         </h2>
-        <p className="text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm">
+        <p className="text-zinc-500 dark:text-zinc-600 text-xs sm:text-sm">
           Select your perspective below to explore the customized step-by-step pipeline.
         </p>
 
         {/* Perspective toggle */}
-        <div className="inline-flex bg-zinc-100 dark:bg-zinc-900 p-1.5 rounded-2xl border border-zinc-200 dark:border-purple-500/10 mt-4">
+        <div className="inline-flex bg-zinc-100 dark:bg-zinc-100 p-1.5 rounded-2xl border border-zinc-200 dark:border-purple-200/50 mt-4">
           <button
             onClick={() => setTrack("seeker")}
             className={`flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               track === "seeker"
-                ? "bg-white dark:bg-zinc-800 text-purple-600 dark:text-purple-300 shadow-sm"
-                : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                ? "bg-white dark:bg-zinc-800 text-purple-600 dark:text-purple-700 shadow-sm"
+                : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-800"
             }`}
           >
             <User className="w-4 h-4" />
@@ -90,8 +90,8 @@ export const HowItWorks: React.FC = () => {
             onClick={() => setTrack("provider")}
             className={`flex items-center gap-1.5 px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               track === "provider"
-                ? "bg-white dark:bg-zinc-800 text-purple-600 dark:text-purple-300 shadow-sm"
-                : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                ? "bg-white dark:bg-zinc-800 text-purple-600 dark:text-purple-700 shadow-sm"
+                : "text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-800"
             }`}
           >
             <Briefcase className="w-4 h-4" />
@@ -116,15 +116,15 @@ export const HowItWorks: React.FC = () => {
 
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <div className="w-10 h-10 rounded-xl bg-purple-600/10 text-purple-600 dark:text-purple-300 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-purple-600/10 text-purple-600 dark:text-purple-700 flex items-center justify-center shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-xl font-extrabold text-purple-600/20 dark:text-purple-300/10">
+                  <span className="text-xl font-extrabold text-purple-600/20 dark:text-purple-700/10">
                     {step.num}
                   </span>
                 </div>
-                <h4 className="font-bold text-sm text-zinc-800 dark:text-zinc-200">{step.title}</h4>
-                <p className="text-xs text-zinc-400 leading-relaxed">{step.desc}</p>
+                <h4 className="font-bold text-sm text-zinc-800 dark:text-zinc-800">{step.title}</h4>
+                <p className="text-xs text-zinc-600 leading-relaxed">{step.desc}</p>
               </div>
             </div>
           );

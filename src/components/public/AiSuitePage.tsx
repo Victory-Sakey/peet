@@ -13,14 +13,14 @@ export const AiSuitePage: React.FC<AiSuitePageProps> = ({ setActivePage }) => {
     <div className="space-y-6 pt-6">
       {/* Visual Header */}
       <div className="max-w-7xl mx-auto px-4 text-center space-y-2">
-        <div className="inline-flex items-center gap-1 bg-purple-600/10 text-purple-400 px-2.5 py-1 rounded text-[10px] font-bold border border-purple-500/10 uppercase tracking-widest animate-pulse">
+        <div className="inline-flex items-center gap-1 bg-purple-600/10 text-purple-600 px-2.5 py-1 rounded text-[10px] font-bold border border-purple-200/50 uppercase tracking-widest animate-pulse">
           <Sparkles className="w-3 h-3 fill-purple-400" />
           Interactive Product sandbox
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
           PEET <span className="text-gradient">AI Career Suite</span>
         </h2>
-        <p className="text-zinc-500 text-xs max-w-sm mx-auto leading-relaxed">
+        <p className="text-zinc-650 text-xs max-w-sm mx-auto leading-relaxed">
           Test drive our CV graders, cover letter generators, coaching chatbot, and mock interview trainers directly below.
         </p>
       </div>
@@ -30,8 +30,8 @@ export const AiSuitePage: React.FC<AiSuitePageProps> = ({ setActivePage }) => {
 
       {/* Bottom CTA to sign up */}
       <div className="max-w-4xl mx-auto px-4 pb-8 pt-4 text-center space-y-4">
-        <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-900 space-y-3">
-          <h3 className="font-extrabold text-sm text-white">Save Your Generated Documents</h3>
+        <div className="p-5 rounded-2xl bg-zinc-100/50 border border-purple-200 space-y-3">
+          <h3 className="font-extrabold text-sm text-zinc-850">Save Your Generated Documents</h3>
           <p className="text-xs text-zinc-550 max-w-md mx-auto leading-relaxed">
             Create an account to download your documents as PDF/ATS formats, sync them to your search profile, and receive automated job alerts matching your skills.
           </p>

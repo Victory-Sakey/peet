@@ -258,6 +258,16 @@ export const SearchTab: React.FC = () => {
     }, 1500);
   };
 
+  useEffect(() => {
+    const queryJobId = searchParams.get("jobId");
+    if (queryJobId && opportunities.length > 0 && !selectedJob) {
+      const job = opportunities.find(o => o.id === queryJobId);
+      if (job) {
+        handleOpenJob(job);
+      }
+    }
+  }, [searchParams, opportunities]);
+
   return (
     <div className="space-y-8 max-w-5xl mx-auto px-4 py-8">
       {/* Search Header */}
@@ -265,7 +275,7 @@ export const SearchTab: React.FC = () => {
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
           Explore Careers & <span className="text-gradient">Opportunities</span>
         </h1>
-        <p className="text-zinc-500 dark:text-zinc-400 text-sm sm:text-base">
+        <p className="text-zinc-500 dark:text-zinc-600 dark:text-zinc-600 dark:text-zinc-600 text-sm sm:text-base">
           PEET AI matches your skills to Jobs, Courses, Bootcamps, and apprenticeships dynamically.
         </p>
       </div>
@@ -281,7 +291,7 @@ export const SearchTab: React.FC = () => {
               placeholder="Search jobs, courses, bootcamps..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="w-full pl-12 pr-4 py-3.5 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-purple-500/10 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm transition-all"
+              className="w-full pl-12 pr-4 py-3.5 bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 rounded-2xl border border-zinc-200 dark:border-purple-200/50 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm transition-all"
             />
           </div>
 
@@ -293,7 +303,7 @@ export const SearchTab: React.FC = () => {
               placeholder="City, state, or remote..."
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full pl-12 pr-4 py-3.5 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-purple-500/10 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm transition-all"
+              className="w-full pl-12 pr-4 py-3.5 bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 rounded-2xl border border-zinc-200 dark:border-purple-200/50 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm transition-all"
             />
           </div>
 
@@ -302,7 +312,7 @@ export const SearchTab: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
-              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-purple-500/10 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm text-left flex items-center justify-between text-zinc-700 dark:text-zinc-300 transition-all select-none"
+              className="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 rounded-2xl border border-zinc-200 dark:border-purple-200/50 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm text-left flex items-center justify-between text-zinc-700 dark:text-zinc-700 dark:text-purple-800 transition-all select-none"
             >
               <div className="flex items-center gap-2">
                 {(() => {
@@ -311,7 +321,7 @@ export const SearchTab: React.FC = () => {
                 })()}
                 <span className="truncate">{category === "All" ? "All Categories" : category}</span>
               </div>
-              <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform duration-200 shrink-0 ${isCategoryDropdownOpen ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-4 h-4 text-zinc-600 dark:text-zinc-600 transition-transform duration-200 shrink-0 ${isCategoryDropdownOpen ? "rotate-180" : ""}`} />
             </button>
 
             {isCategoryDropdownOpen && (
@@ -323,7 +333,7 @@ export const SearchTab: React.FC = () => {
                 />
                 
                 {/* Floating list */}
-                <div className="absolute top-full left-0 right-0 mt-2 z-40 max-h-60 overflow-y-auto glass-panel rounded-2xl p-2 border border-purple-500/20 shadow-2xl animate-scale-up scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+                <div className="absolute top-full left-0 right-0 mt-2 z-40 max-h-60 overflow-y-auto glass-panel rounded-2xl p-2 border border-purple-200 shadow-2xl animate-scale-up scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
                   {categories.map((cat) => {
                     const Icon = categoryIcons[cat] || Compass;
                     const isSelected = category === cat;
@@ -345,10 +355,10 @@ export const SearchTab: React.FC = () => {
                         className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold rounded-xl text-left transition-colors ${
                           isSelected
                             ? "bg-purple-600 text-white"
-                            : "text-zinc-400 hover:text-zinc-200 hover:bg-purple-500/10"
+                            : "text-zinc-600 dark:text-zinc-600 hover:text-zinc-800 hover:bg-purple-500/10"
                         }`}
                       >
-                        <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-white" : "text-purple-500"}`} />
+                        <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-zinc-900 dark:text-white" : "text-purple-500"}`} />
                         {cat === "All" ? "All Categories" : cat}
                       </button>
                     );
@@ -365,8 +375,8 @@ export const SearchTab: React.FC = () => {
               onClick={() => setShowFilters(!showFilters)}
               className={`p-3.5 rounded-2xl border transition-all ${
                 showFilters
-                  ? "bg-purple-600/10 border-purple-600 text-purple-600 dark:text-purple-300"
-                  : "bg-zinc-50 dark:bg-zinc-900/50 border-zinc-200 dark:border-purple-500/10 text-zinc-500 hover:text-purple-600"
+                  ? "bg-purple-600/10 border-purple-600 text-purple-600 dark:text-purple-700"
+                  : "bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 border-zinc-200 dark:border-purple-200/50 text-zinc-500 dark:text-zinc-600 hover:text-purple-600"
               }`}
               title="Advanced Filters"
             >
@@ -375,7 +385,7 @@ export const SearchTab: React.FC = () => {
             <button
               type="submit"
               disabled={isLoadingOpportunities}
-              className="flex-1 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-600/50 text-white rounded-2xl flex items-center justify-center gap-1.5 font-semibold text-sm transition-all shadow-md shadow-purple-500/20"
+              className="flex-1 bg-purple-600 text-white rounded-2xl flex items-center justify-center gap-1.5 font-semibold text-sm transition-all shadow-md shadow-purple-500/20"
             >
               <Search className="w-4 h-4" />
               <span>Search</span>
@@ -384,15 +394,15 @@ export const SearchTab: React.FC = () => {
         </div>
 
         {/* Opportunity Type Selectors */}
-        <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-purple-500/10 text-xs font-bold">
-          <span className="text-zinc-500">OPPORTUNITY TYPE:</span>
+        <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-purple-200/50 text-xs font-bold">
+          <span className="text-zinc-500 dark:text-zinc-600">OPPORTUNITY TYPE:</span>
           
-          <label className="flex items-center gap-2 cursor-pointer text-zinc-300 select-none">
+          <label className="flex items-center gap-2 cursor-pointer text-zinc-700 dark:text-purple-800 select-none">
             <input
               type="checkbox"
               checked={filterJobs}
               onChange={(e) => handleToggleType("job", e.target.checked)}
-              className="w-4 h-4 rounded border-purple-500/10 text-purple-600 focus:ring-purple-600 accent-purple-600"
+              className="w-4 h-4 rounded border-purple-200/50 text-purple-600 focus:ring-purple-600 accent-purple-600"
             />
             <span className="flex items-center gap-1">
               <Briefcase className="w-3.5 h-3.5 text-purple-500" />
@@ -400,7 +410,7 @@ export const SearchTab: React.FC = () => {
             </span>
           </label>
 
-          <label className="flex items-center gap-2 cursor-pointer text-zinc-300 select-none">
+          <label className="flex items-center gap-2 cursor-pointer text-zinc-700 dark:text-purple-800 select-none">
             <input
               type="checkbox"
               checked={filterEducation}
@@ -413,7 +423,7 @@ export const SearchTab: React.FC = () => {
             </span>
           </label>
 
-          <label className="flex items-center gap-2 cursor-pointer text-zinc-300 select-none">
+          <label className="flex items-center gap-2 cursor-pointer text-zinc-700 dark:text-purple-800 select-none">
             <input
               type="checkbox"
               checked={filterTraining}
@@ -429,35 +439,35 @@ export const SearchTab: React.FC = () => {
 
         {/* Expandable Advanced Filters */}
         {showFilters && (
-          <div className="pt-4 border-t border-purple-500/10 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <div className="pt-4 border-t border-purple-200/50 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
             {/* Features checkmarks */}
             <div className="flex flex-wrap gap-4 text-xs font-semibold select-none">
-              <label className="flex items-center gap-2 cursor-pointer text-zinc-400 hover:text-zinc-200">
+              <label className="flex items-center gap-2 cursor-pointer text-zinc-600 dark:text-zinc-600 hover:text-zinc-800">
                 <input
                   type="checkbox"
                   checked={filterFree}
                   onChange={(e) => handleToggleFlag("free", e.target.checked)}
-                  className="w-4 h-4 rounded border-purple-500/10 accent-purple-600"
+                  className="w-4 h-4 rounded border-purple-200/50 accent-purple-600"
                 />
                 <span>Free opportunities only</span>
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer text-zinc-400 hover:text-zinc-200">
+              <label className="flex items-center gap-2 cursor-pointer text-zinc-600 dark:text-zinc-600 hover:text-zinc-800">
                 <input
                   type="checkbox"
                   checked={filterBeginner}
                   onChange={(e) => handleToggleFlag("beginner", e.target.checked)}
-                  className="w-4 h-4 rounded border-purple-500/10 accent-purple-600"
+                  className="w-4 h-4 rounded border-purple-200/50 accent-purple-600"
                 />
                 <span>Beginner Friendly</span>
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer text-zinc-400 hover:text-zinc-200">
+              <label className="flex items-center gap-2 cursor-pointer text-zinc-600 dark:text-zinc-600 hover:text-zinc-800">
                 <input
                   type="checkbox"
                   checked={filterCert}
                   onChange={(e) => handleToggleFlag("cert", e.target.checked)}
-                  className="w-4 h-4 rounded border-purple-500/10 accent-purple-600"
+                  className="w-4 h-4 rounded border-purple-200/50 accent-purple-600"
                 />
                 <span>Certificate Included</span>
               </label>
@@ -465,8 +475,8 @@ export const SearchTab: React.FC = () => {
 
             <div className="space-y-2">
               <div className="flex justify-between text-xs font-semibold">
-                <span className="text-zinc-500">Min Salary (Jobs only)</span>
-                <span className="text-purple-600 dark:text-purple-300 font-bold">${minSalary.toLocaleString()}+</span>
+                <span className="text-zinc-500 dark:text-zinc-600">Min Salary (Jobs only)</span>
+                <span className="text-purple-600 dark:text-purple-700 font-bold">${minSalary.toLocaleString()}+</span>
               </div>
               <input
                 type="range"
@@ -495,7 +505,7 @@ export const SearchTab: React.FC = () => {
                   setFilterTraining(true);
                   router.push(pathname);
                 }}
-                className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
+                className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-200 text-xs font-semibold text-zinc-500 dark:text-zinc-600 hover:text-zinc-800 dark:hover:text-zinc-800 transition-colors"
               >
                 Reset Filters
               </button>
@@ -504,7 +514,7 @@ export const SearchTab: React.FC = () => {
                 onClick={handleSaveSearch}
                 className={`px-5 py-2.5 rounded-xl text-xs font-semibold shadow-md transition-all ${
                   saveSearchSuccess
-                    ? "bg-emerald-600 text-white shadow-emerald-500/10"
+                    ? "bg-emerald-600 text-zinc-900 dark:text-white shadow-emerald-500/10"
                     : "bg-purple-600 text-white shadow-purple-500/10 hover:bg-purple-700"
                 }`}
               >
@@ -520,10 +530,10 @@ export const SearchTab: React.FC = () => {
         {/* Listings Section */}
         <div className={`${savedSearches.length > 0 ? "lg:col-span-2" : "lg:col-span-3"} space-y-4`}>
           <div className="flex justify-between items-center px-1">
-            <h2 className="text-lg font-bold text-zinc-700 dark:text-zinc-200">
+            <h2 className="text-lg font-bold text-zinc-700 dark:text-zinc-800">
               Opportunities Found ({filteredJobs.length})
             </h2>
-            <span className="text-xs text-zinc-400 font-semibold">Sorted by relevance</span>
+            <span className="text-xs text-zinc-600 dark:text-zinc-600 font-semibold">Sorted by relevance</span>
           </div>
 
           {isLoadingOpportunities ? (
@@ -550,12 +560,12 @@ export const SearchTab: React.FC = () => {
             </div>
           ) : filteredJobs.length === 0 ? (
             <div className="glass-panel rounded-3xl p-12 text-center space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center mx-auto text-zinc-400">
+              <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-100 dark:bg-zinc-100 flex items-center justify-center mx-auto text-zinc-600 dark:text-zinc-600">
                 <Search className="w-6 h-6" />
               </div>
               <div className="space-y-1">
                 <h3 className="font-bold text-lg">No matches found</h3>
-                <p className="text-zinc-500 dark:text-zinc-400 text-sm max-w-sm mx-auto">
+                <p className="text-zinc-500 dark:text-zinc-600 dark:text-zinc-600 dark:text-zinc-600 text-sm max-w-sm mx-auto">
                   Try adjusting filters or typing another keyword to discover active positions.
                 </p>
               </div>
@@ -574,7 +584,7 @@ export const SearchTab: React.FC = () => {
                 <div
                   key={opp.id}
                   onClick={() => handleOpenJob(opp)}
-                  className="glass-panel rounded-2xl p-5 hover:translate-x-1 duration-200 cursor-pointer flex flex-col sm:flex-row gap-5 items-start justify-between relative group"
+                  className="glass-panel glass-panel-hover rounded-2xl p-5 cursor-pointer flex flex-col sm:flex-row gap-5 items-start justify-between relative group"
                 >
                   <div className="flex gap-4 items-start">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${
@@ -582,13 +592,13 @@ export const SearchTab: React.FC = () => {
                         ? "bg-emerald-500/10 border-emerald-500/25 text-emerald-400"
                         : opp.type === "training"
                         ? "bg-amber-500/10 border-amber-500/25 text-amber-400"
-                        : "bg-purple-500/10 border-purple-500/25 text-purple-400"
+                        : "bg-purple-500/10 border-purple-200 text-purple-600"
                     }`}>
                       <OpportunityIcon logo={opp.logo} className="w-5 h-5" />
                     </div>
                     <div className="space-y-1 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="font-bold text-base group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
+                        <h3 className="font-bold text-base group-hover:text-purple-600 dark:group-hover:text-purple-700 transition-colors">
                           {opp.title}
                         </h3>
                         <span className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded tracking-wider border ${
@@ -596,14 +606,14 @@ export const SearchTab: React.FC = () => {
                             ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/15"
                             : opp.type === "training"
                             ? "bg-amber-500/10 text-amber-400 border-amber-500/15"
-                            : "bg-purple-500/10 text-purple-400 border-purple-500/15"
+                            : "bg-purple-500/10 text-purple-600 border-purple-500/15"
                         }`}>
                           {opp.type}
                         </span>
                       </div>
                       
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400">
-                        <span className="font-semibold text-zinc-700 dark:text-zinc-300">{opp.provider}</span>
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-500 dark:text-zinc-600 dark:text-zinc-600 dark:text-zinc-600">
+                        <span className="font-semibold text-zinc-700 dark:text-zinc-700 dark:text-purple-800">{opp.provider}</span>
                         <span>•</span>
                         <span>{opp.location}</span>
                         <span>•</span>
@@ -623,7 +633,7 @@ export const SearchTab: React.FC = () => {
                           </span>
                         )}
                         {opp.hasCertificate && (
-                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-purple-500/10 text-purple-400">
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-purple-500/10 text-purple-600">
                             Certificate Awarded
                           </span>
                         )}
@@ -634,13 +644,13 @@ export const SearchTab: React.FC = () => {
                         {opp.skills.slice(0, 4).map((skill) => (
                           <span
                             key={skill}
-                            className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300"
+                            className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-700 dark:text-purple-800"
                           >
                             {skill}
                           </span>
                         ))}
                         {opp.skills.length > 4 && (
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-300">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-700">
                             +{opp.skills.length - 4} more
                           </span>
                         )}
@@ -648,17 +658,17 @@ export const SearchTab: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-purple-500/10 gap-2">
-                    <div className="flex items-center gap-1.5 sm:mb-2 bg-purple-600/10 text-purple-600 dark:text-purple-300 px-2 py-1 rounded-lg">
+                  <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-purple-200/50 gap-2">
+                    <div className="flex items-center gap-1.5 sm:mb-2 bg-purple-600/10 text-purple-600 dark:text-purple-700 px-2 py-1 rounded-lg">
                       <Sparkles className="w-3.5 h-3.5 fill-purple-600 dark:fill-transparent animate-pulse" />
                       <span className="text-xs font-bold">{score}% Match</span>
                     </div>
 
                     <div className="text-right sm:block hidden mb-2">
-                      <span className="text-xs text-zinc-400 block font-medium">
+                      <span className="text-xs text-zinc-600 dark:text-zinc-600 block font-medium">
                         {opp.type === "job" ? "Compensation Range" : "Opportunity Cost"}
                       </span>
-                      <span className="text-sm font-bold text-zinc-700 dark:text-zinc-200">
+                      <span className="text-sm font-bold text-zinc-700 dark:text-zinc-800">
                         {opp.salaryOrCost}
                       </span>
                     </div>
@@ -669,7 +679,7 @@ export const SearchTab: React.FC = () => {
                         {applicationStatus}
                       </span>
                     ) : (
-                      <button className="flex items-center gap-1 px-4 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold transition-colors shadow-sm shadow-purple-500/10">
+                      <button className="flex items-center gap-1 px-4 py-1.5 rounded-xl bg-purple-600 text-white text-xs font-semibold transition-colors shadow-sm shadow-purple-500/10">
                         View Details
                         <ChevronRight className="w-3.5 h-3.5" />
                       </button>
@@ -686,29 +696,29 @@ export const SearchTab: React.FC = () => {
           <div className="space-y-6">
             {/* Saved Searches */}
             <div className="glass-panel rounded-3xl p-5 space-y-3.5">
-              <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-200">
+              <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-800">
                 Saved Searches ({savedSearches.length})
               </h3>
               <div className="space-y-2">
                 {savedSearches.map((s) => (
                   <div
                     key={s.id}
-                    className="flex justify-between items-center p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 hover:bg-purple-500/5 transition-colors group"
+                    className="flex justify-between items-center p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-100/50 dark:bg-zinc-100 dark:bg-zinc-100/40 hover:bg-purple-500/5 transition-colors group"
                   >
                     <div
                       className="cursor-pointer space-y-0.5 flex-1"
                       onClick={() => handleApplySavedSearch(s)}
                     >
-                      <div className="text-xs font-bold group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">
+                      <div className="text-xs font-bold group-hover:text-purple-600 dark:group-hover:text-purple-700 transition-colors">
                         {s.keyword}
                       </div>
-                      <div className="text-[10px] text-zinc-400">
+                      <div className="text-[10px] text-zinc-600 dark:text-zinc-600">
                         {s.location} • {s.category}
                       </div>
                     </div>
                     <button
                       onClick={() => removeSavedSearch(s.id)}
-                      className="text-zinc-400 hover:text-red-500 p-1.5 rounded-lg hover:bg-red-500/5 transition-colors"
+                      className="text-zinc-600 dark:text-zinc-600 hover:text-red-500 p-1.5 rounded-lg hover:bg-red-500/5 transition-colors"
                       aria-label="Remove saved search"
                     >
                       <X className="w-3.5 h-3.5" />
@@ -733,16 +743,16 @@ export const SearchTab: React.FC = () => {
 
         return (
           <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-            <div className="glass-panel w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-purple-500/20 max-h-[90vh] flex flex-col animate-scale-up">
+            <div className="glass-panel w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-purple-200 max-h-[90vh] flex flex-col animate-scale-up">
               {/* Header */}
-              <div className="p-6 border-b border-purple-500/10 flex justify-between items-start gap-4">
+              <div className="p-6 border-b border-purple-200/50 flex justify-between items-start gap-4">
                 <div className="flex gap-4 items-start">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${
                     selectedJob.type === "education"
                       ? "bg-emerald-500/10 border-emerald-500/25 text-emerald-400"
                       : selectedJob.type === "training"
                       ? "bg-amber-500/10 border-amber-500/25 text-amber-400"
-                      : "bg-purple-500/10 border-purple-500/25 text-purple-400"
+                      : "bg-purple-500/10 border-purple-200 text-purple-600"
                   }`}>
                     <OpportunityIcon logo={selectedJob.logo} className="w-6 h-6" />
                   </div>
@@ -751,18 +761,18 @@ export const SearchTab: React.FC = () => {
                       <h3 className="font-extrabold text-lg sm:text-xl text-zinc-800 dark:text-zinc-100">
                         {selectedJob.title}
                       </h3>
-                      <span className={`text-[10px] font-bold bg-purple-650/15 text-purple-600 dark:text-purple-300 px-2 py-0.5 rounded-lg border ${
+                      <span className={`text-[10px] font-bold bg-purple-650/15 text-purple-600 dark:text-purple-700 px-2 py-0.5 rounded-lg border ${
                         selectedJob.type === "education"
                           ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/15"
                           : selectedJob.type === "training"
                           ? "bg-amber-500/10 text-amber-400 border-amber-500/15"
-                          : "bg-purple-500/10 text-purple-400 border-purple-500/15"
+                          : "bg-purple-500/10 text-purple-600 border-purple-500/15"
                       }`}>
                         {selectedJob.type === "training" ? "career" : selectedJob.type}
                       </span>
                     </div>
-                    <div className="text-xs text-zinc-500 dark:text-zinc-400 flex flex-wrap gap-x-2 font-medium mt-0.5">
-                      <span className="font-bold text-purple-650 dark:text-purple-400">
+                    <div className="text-xs text-zinc-500 dark:text-zinc-600 dark:text-zinc-600 dark:text-zinc-600 flex flex-wrap gap-x-2 font-medium mt-0.5">
+                      <span className="font-bold text-purple-650 dark:text-purple-600">
                         {selectedJob.provider}
                       </span>
                       <span>•</span>
@@ -774,7 +784,7 @@ export const SearchTab: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setSelectedJob(null)}
-                  className="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 p-1.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900/40 transition-colors"
+                  className="text-zinc-600 dark:text-zinc-600 hover:text-zinc-700 dark:hover:text-zinc-800 p-1.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-100/50 dark:bg-zinc-100 dark:bg-zinc-100/40 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -785,44 +795,44 @@ export const SearchTab: React.FC = () => {
                 {/* Visual Specifications Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="glass-panel p-3.5 rounded-2xl border border-purple-500/5 bg-purple-500/5 text-center sm:text-left">
-                    <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider">Entity / Provider</div>
-                    <div className="text-xs font-extrabold text-zinc-200 truncate mt-1">{selectedJob.provider}</div>
-                    <div className="text-[9px] font-semibold text-zinc-400 mt-0.5">{selectedJob.subType}</div>
+                    <div className="text-[9px] font-bold text-zinc-500 dark:text-zinc-600 uppercase tracking-wider">Entity / Provider</div>
+                    <div className="text-xs font-extrabold text-zinc-800 truncate mt-1">{selectedJob.provider}</div>
+                    <div className="text-[9px] font-semibold text-zinc-600 dark:text-zinc-600 mt-0.5">{selectedJob.subType}</div>
                   </div>
                   <div className="glass-panel p-3.5 rounded-2xl border border-purple-500/5 bg-purple-500/5 text-center sm:text-left">
-                    <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider">Office & Location</div>
-                    <div className="text-xs font-extrabold text-zinc-200 truncate mt-1">{selectedJob.location}</div>
-                    <div className="text-[9px] font-semibold text-zinc-400 mt-0.5">Physical Workspace</div>
+                    <div className="text-[9px] font-bold text-zinc-500 dark:text-zinc-600 uppercase tracking-wider">Office & Location</div>
+                    <div className="text-xs font-extrabold text-zinc-800 truncate mt-1">{selectedJob.location}</div>
+                    <div className="text-[9px] font-semibold text-zinc-600 dark:text-zinc-600 mt-0.5">Physical Workspace</div>
                   </div>
                   <div className="glass-panel p-3.5 rounded-2xl border border-purple-500/5 bg-purple-500/5 text-center sm:text-left">
-                    <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-wider">
+                    <div className="text-[9px] font-bold text-zinc-500 dark:text-zinc-600 uppercase tracking-wider">
                       {selectedJob.type === "job" ? "Compensation Display" : "Required Tuition"}
                     </div>
-                    <div className="text-xs font-extrabold text-zinc-200 truncate mt-1">{selectedJob.salaryOrCost}</div>
-                    <div className="text-[9px] font-semibold text-zinc-400 mt-0.5">Value Rate</div>
+                    <div className="text-xs font-extrabold text-zinc-800 truncate mt-1">{selectedJob.salaryOrCost}</div>
+                    <div className="text-[9px] font-semibold text-zinc-600 dark:text-zinc-600 mt-0.5">Value Rate</div>
                   </div>
                 </div>
 
                 {/* AI Fit Matching score card */}
-                <div className="glass-panel p-5 rounded-2xl border border-purple-500/10 bg-purple-500/5 space-y-4">
+                <div className="glass-panel p-5 rounded-2xl border border-purple-200/50 bg-purple-500/5 space-y-4">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-purple-650/15 flex items-center justify-center text-purple-400">
+                      <div className="w-10 h-10 rounded-xl bg-purple-650/15 flex items-center justify-center text-purple-600">
                         <Sparkles className="w-5 h-5 fill-purple-600 dark:fill-transparent animate-pulse" />
                       </div>
                       <div>
                         <div className="text-xs font-bold text-purple-450 uppercase tracking-wider">AI Skill Match Rating</div>
-                        <div className="text-sm font-extrabold text-zinc-200 mt-0.5">
+                        <div className="text-sm font-extrabold text-zinc-800 mt-0.5">
                           You match {score}% of the opportunity profile
                         </div>
                       </div>
                     </div>
-                    <div className="px-3 py-1 rounded-full bg-purple-650/20 border border-purple-550/30 text-purple-300 text-[10px] font-extrabold tracking-wider uppercase select-none">
+                    <div className="px-3 py-1 rounded-full bg-purple-650/20 border border-purple-300 text-purple-700 text-[10px] font-extrabold tracking-wider uppercase select-none">
                       Skills Check
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-purple-500/10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-purple-200/50">
                     {/* Matched Skills */}
                     <div className="space-y-2">
                       <div className="text-[9px] font-bold text-emerald-450 uppercase tracking-wider flex items-center gap-1">
@@ -836,7 +846,7 @@ export const SearchTab: React.FC = () => {
                             </span>
                           ))
                         ) : (
-                          <span className="text-[10px] font-semibold text-zinc-500">None matching</span>
+                          <span className="text-[10px] font-semibold text-zinc-500 dark:text-zinc-600">None matching</span>
                         )}
                       </div>
                     </div>
@@ -844,12 +854,12 @@ export const SearchTab: React.FC = () => {
                     {/* Missing Skills / Skills to Learn */}
                     <div className="space-y-2">
                       <div className="text-[9px] font-bold text-purple-450 uppercase tracking-wider flex items-center gap-1">
-                        <Sparkles className="w-3.5 h-3.5 text-purple-400" /> Skills to Gain ({missingSkills.length})
+                        <Sparkles className="w-3.5 h-3.5 text-purple-600" /> Skills to Gain ({missingSkills.length})
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {missingSkills.length > 0 ? (
                           missingSkills.map((s) => (
-                            <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/15 text-purple-400">
+                            <span key={s} className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/15 text-purple-600">
                               {s}
                             </span>
                           ))
@@ -863,24 +873,24 @@ export const SearchTab: React.FC = () => {
 
                 {/* About the Opportunity */}
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold text-purple-650 dark:text-purple-300 uppercase tracking-wider">
+                  <h4 className="text-xs font-bold text-purple-650 dark:text-purple-700 uppercase tracking-wider">
                     About the Opportunity
                   </h4>
-                  <p className="text-sm text-zinc-400 leading-relaxed font-normal">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-600 leading-relaxed font-normal">
                     {selectedJob.description}
                   </p>
                 </div>
 
                 {/* Requirements */}
                 <div className="space-y-3">
-                  <h4 className="text-xs font-bold text-purple-650 dark:text-purple-300 uppercase tracking-wider">
+                  <h4 className="text-xs font-bold text-purple-650 dark:text-purple-700 uppercase tracking-wider">
                     Key Requirements & Qualifications
                   </h4>
                   <div className="space-y-2.5">
                     {selectedJob.requirements.map((req, index) => (
                       <div key={index} className="flex gap-2.5 items-start">
                         <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-2 shrink-0" />
-                        <p className="text-xs sm:text-sm text-zinc-350 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
                           {req}
                         </p>
                       </div>
@@ -889,19 +899,19 @@ export const SearchTab: React.FC = () => {
                 </div>
 
                 {/* Apply Form */}
-                <form onSubmit={handleApplySubmit} className="pt-6 border-t border-purple-500/10 space-y-4">
+                <form onSubmit={handleApplySubmit} className="pt-6 border-t border-purple-200/50 space-y-4">
                   <div className="flex justify-between items-center">
-                    <h4 className="text-xs font-bold text-purple-650 dark:text-purple-300 uppercase tracking-wider">
+                    <h4 className="text-xs font-bold text-purple-650 dark:text-purple-700 uppercase tracking-wider">
                       {selectedJob.type === "job" ? "Quick Application" : "Program Enrollment"}
                     </h4>
-                    <span className="text-[10px] font-bold text-zinc-500">Document: {cvFileName}</span>
+                    <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-600">Document: {cvFileName}</span>
                   </div>
 
                   <div className="glass-panel p-4 rounded-2xl border border-purple-500/5 bg-purple-500/5 space-y-3">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                       <div className="space-y-0.5">
-                        <div className="text-xs font-bold text-zinc-200">Tailored AI Application Statement</div>
-                        <div className="text-[10px] text-zinc-500">Formulates a personalized statement based on your matched skills.</div>
+                        <div className="text-xs font-bold text-zinc-800">Tailored AI Application Statement</div>
+                        <div className="text-[10px] text-zinc-500 dark:text-zinc-600">Formulates a personalized statement based on your matched skills.</div>
                       </div>
                       <button
                         type="button"
@@ -912,7 +922,7 @@ export const SearchTab: React.FC = () => {
                               : `Hello Admissions Office,\n\nI am enrolling in the ${selectedJob.title} course to bridge my skills gap in ${missingSkills.slice(0, 2).join(", ") || "this field"} and build upon my knowledge in ${matchedSkills.slice(0, 2).join(", ") || "core fundamentals"}. Please review my profile and verify my application.`
                           )
                         }
-                        className="px-3 py-1 bg-purple-650/10 hover:bg-purple-650/20 border border-purple-500/20 text-purple-350 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
+                        className="px-3 py-1 bg-purple-650/10 hover:bg-purple-650/20 border border-purple-200 text-purple-350 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5"
                       >
                         <Sparkles className="w-3.5 h-3.5 fill-purple-400" />
                         <span>Auto-Generate Statement</span>
@@ -924,7 +934,7 @@ export const SearchTab: React.FC = () => {
                       required
                       value={coverLetterText}
                       onChange={(e) => setCoverLetterText(e.target.value)}
-                      className="w-full px-4 py-3 bg-zinc-950/40 rounded-xl border border-purple-500/10 text-xs text-zinc-200 focus:outline-none focus:ring-1 focus:ring-purple-600 focus:border-transparent resize-none font-sans leading-relaxed"
+                      className="w-full px-4 py-3 bg-zinc-100/50 rounded-xl border border-purple-200/50 text-xs text-zinc-800 focus:outline-none focus:ring-1 focus:ring-purple-600 focus:border-transparent resize-none font-sans leading-relaxed"
                       placeholder="Write your cover statement or click 'Auto-Generate Statement' above..."
                     />
                   </div>
@@ -933,13 +943,13 @@ export const SearchTab: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setSelectedJob(null)}
-                      className="px-5 py-2.5 rounded-xl border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition-colors text-xs font-bold"
+                      className="px-5 py-2.5 rounded-xl border border-zinc-200 text-zinc-600 dark:text-zinc-600 hover:text-zinc-800 transition-colors text-xs font-bold"
                     >
                       Close
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-colors shadow-md shadow-purple-500/15 flex items-center gap-1.5"
+                      className="px-6 py-2.5 bg-purple-600 text-white rounded-xl text-xs font-bold transition-colors shadow-md shadow-purple-500/15 flex items-center gap-1.5"
                     >
                       <span>{selectedJob.type === "job" ? "Submit Application" : "Complete Enrollment"}</span>
                       <ChevronRight className="w-4 h-4" />
@@ -960,3 +970,4 @@ export const SearchTab: React.FC = () => {
     </div>
   );
 };
+

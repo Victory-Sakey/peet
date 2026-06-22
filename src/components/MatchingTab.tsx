@@ -132,14 +132,14 @@ export const MatchingTab: React.FC = () => {
     <div className="space-y-8 max-w-7xl mx-auto px-4 py-8">
       {/* Page Title */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-1.5 bg-purple-600/10 text-purple-600 dark:text-purple-300 px-3 py-1 rounded-xl text-xs font-bold mb-1">
+        <div className="inline-flex items-center gap-1.5 bg-purple-600/10 text-purple-600 dark:text-purple-700 px-3 py-1 rounded-xl text-xs font-bold mb-1">
           <Sparkles className="w-3.5 h-3.5 fill-purple-600 dark:fill-transparent animate-pulse" />
           AI Smart Matching Hub
         </div>
         <h1 className="text-3xl font-extrabold tracking-tight">
           AI Fit & <span className="text-gradient">Skill Gap Analyzer</span>
         </h1>
-        <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+        <p className="text-zinc-500 dark:text-zinc-600 text-sm">
           PEET matches your credentials against work and learning opportunities in real time.
         </p>
       </div>
@@ -150,15 +150,15 @@ export const MatchingTab: React.FC = () => {
           <div className="glass-panel rounded-3xl p-5 space-y-4">
             <div className="flex justify-between items-center">
               <div className="flex gap-2 items-center">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-300 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-700 flex items-center justify-center">
                   <User className="w-4 h-4" />
                 </div>
-                <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-200">Your Smart Profile</h3>
+                <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-800">Your Smart Profile</h3>
               </div>
               {!isEditing && (
                 <button
                   onClick={startEditing}
-                  className="text-xs font-bold text-purple-600 dark:text-purple-300 hover:text-purple-750 dark:hover:text-purple-400 transition-colors cursor-pointer"
+                  className="text-xs font-bold text-purple-600 dark:text-purple-700 hover:text-purple-750 dark:hover:text-purple-600 transition-colors cursor-pointer"
                 >
                   Edit
                 </button>
@@ -166,42 +166,42 @@ export const MatchingTab: React.FC = () => {
             </div>
 
             {isEditing ? (
-              <form onSubmit={handleSaveProfile} className="space-y-3 bg-zinc-50 dark:bg-zinc-900/50 p-4 rounded-2xl border border-purple-500/5">
+              <form onSubmit={handleSaveProfile} className="space-y-3 bg-zinc-50 dark:bg-zinc-100/60 p-4 rounded-2xl border border-purple-500/5">
                 <div className="space-y-1">
-                  <label className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider block">Full Name</label>
+                  <label className="text-[9px] font-bold text-zinc-600 uppercase tracking-wider block">Full Name</label>
                   <input
                     type="text"
                     required
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
-                    className="w-full px-3 py-2 bg-white dark:bg-zinc-950 rounded-xl border border-purple-500/10 text-xs text-zinc-700 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                    className="w-full px-3 py-2 bg-white dark:bg-zinc-100 rounded-xl border border-purple-200/50 text-xs text-zinc-700 dark:text-zinc-800 focus:outline-none focus:ring-1 focus:ring-purple-500"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider block">Job Title</label>
+                  <label className="text-[9px] font-bold text-zinc-600 uppercase tracking-wider block">Job Title</label>
                   <input
                     type="text"
                     required
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
-                    className="w-full px-3 py-2 bg-white dark:bg-zinc-950 rounded-xl border border-purple-500/10 text-xs text-zinc-700 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                    className="w-full px-3 py-2 bg-white dark:bg-zinc-100 rounded-xl border border-purple-200/50 text-xs text-zinc-700 dark:text-zinc-800 focus:outline-none focus:ring-1 focus:ring-purple-500"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider block">Professional Biography</label>
+                  <label className="text-[9px] font-bold text-zinc-600 uppercase tracking-wider block">Professional Biography</label>
                   <textarea
                     rows={3}
                     required
                     value={editBio}
                     onChange={(e) => setEditBio(e.target.value)}
-                    className="w-full px-3 py-2 bg-white dark:bg-zinc-950 rounded-xl border border-purple-500/10 text-xs text-zinc-700 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-purple-500 resize-none"
+                    className="w-full px-3 py-2 bg-white dark:bg-zinc-100 rounded-xl border border-purple-200/50 text-xs text-zinc-700 dark:text-zinc-800 focus:outline-none focus:ring-1 focus:ring-purple-500 resize-none"
                   />
                 </div>
                 <div className="flex gap-2 justify-end pt-1">
                   <button
                     type="button"
                     onClick={() => setIsEditing(false)}
-                    className="px-3 py-1.5 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-[10px] font-bold hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-600 text-[10px] font-bold hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -214,14 +214,14 @@ export const MatchingTab: React.FC = () => {
                 </div>
               </form>
             ) : (
-              <div className="space-y-1 bg-zinc-50 dark:bg-zinc-900/50 p-4 rounded-2xl border border-purple-500/5">
-                <div className="text-base font-bold text-zinc-800 dark:text-zinc-200">
+              <div className="space-y-1 bg-zinc-50 dark:bg-zinc-100/60 p-4 rounded-2xl border border-purple-500/5">
+                <div className="text-base font-bold text-zinc-800 dark:text-zinc-800">
                   {seekerProfile.name}
                 </div>
-                <div className="text-xs text-purple-600 dark:text-purple-300 font-bold">
+                <div className="text-xs text-purple-600 dark:text-purple-700 font-bold">
                   {seekerProfile.title}
                 </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 pt-2 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-zinc-500 dark:text-zinc-600 pt-2 line-clamp-3 leading-relaxed">
                   {seekerProfile.bio}
                 </p>
               </div>
@@ -229,17 +229,17 @@ export const MatchingTab: React.FC = () => {
 
             {/* Current Skills List */}
             <div className="space-y-2">
-              <div className="text-xs font-bold text-zinc-400">Your Current Skills ({seekerProfile.skills.length})</div>
+              <div className="text-xs font-bold text-zinc-600">Your Current Skills ({seekerProfile.skills.length})</div>
               <div className="flex flex-wrap gap-1.5">
                 {seekerProfile.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="inline-flex items-center gap-1 text-[10px] font-bold bg-purple-600/10 text-purple-600 dark:text-purple-300 border border-purple-500/10 px-2.5 py-1 rounded-xl"
+                    className="inline-flex items-center gap-1 text-[10px] font-bold bg-purple-600/10 text-purple-600 dark:text-purple-700 border border-purple-200/50 px-2.5 py-1 rounded-xl"
                   >
                     {skill}
                     <button
                       onClick={() => handleRemoveSkill(skill)}
-                      className="text-zinc-400 hover:text-red-500 ml-1 transition-colors"
+                      className="text-zinc-600 hover:text-red-500 ml-1 transition-colors"
                       aria-label={`Remove skill ${skill}`}
                     >
                       ×
@@ -250,15 +250,15 @@ export const MatchingTab: React.FC = () => {
             </div>
 
             {/* Add Skill Form */}
-            <form onSubmit={handleAddSkill} className="space-y-2 pt-2 border-t border-purple-500/10">
-              <label className="text-[11px] font-bold text-zinc-400 block">Add New Skill</label>
+            <form onSubmit={handleAddSkill} className="space-y-2 pt-2 border-t border-purple-200/50">
+              <label className="text-[11px] font-bold text-zinc-600 block">Add New Skill</label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   placeholder="e.g. Docker, PyTorch"
                   value={newSkill}
                   onChange={(e) => setNewSkill(e.target.value)}
-                  className="flex-1 px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-purple-500/10 text-xs text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-1 focus:ring-purple-600"
+                  className="flex-1 px-3 py-2 bg-zinc-50 dark:bg-zinc-100/60 rounded-xl border border-zinc-200 dark:border-purple-200/50 text-xs text-zinc-700 dark:text-purple-800 focus:outline-none focus:ring-1 focus:ring-purple-600"
                 />
                 <button
                   type="submit"
@@ -271,7 +271,7 @@ export const MatchingTab: React.FC = () => {
             </form>
 
             {statusMessage && (
-              <div className="text-center text-[10px] font-bold text-purple-600 dark:text-purple-300 bg-purple-600/10 p-2 rounded-lg transition-all animate-pulse">
+              <div className="text-center text-[10px] font-bold text-purple-600 dark:text-purple-700 bg-purple-600/10 p-2 rounded-lg transition-all animate-pulse">
                 {statusMessage}
               </div>
             )}
@@ -281,7 +281,7 @@ export const MatchingTab: React.FC = () => {
         {/* Center column: Recommended matched list */}
         <div className="lg:col-span-2 space-y-6">
           <div className="glass-panel rounded-3xl p-5 space-y-4">
-            <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-200">
+            <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-800">
               Ranked Job Matches ({matchedJobs.length})
             </h3>
             <div className="space-y-3">
@@ -294,22 +294,22 @@ export const MatchingTab: React.FC = () => {
                 return (
                   <div
                     key={opp.id}
-                    className="p-4 rounded-2xl bg-zinc-50/50 dark:bg-zinc-900/40 border border-purple-500/5 hover:border-purple-500/20 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+                    className="p-4 rounded-2xl bg-zinc-50/50 dark:bg-zinc-100/40 border border-purple-500/5 hover:border-purple-200 transition-all flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
                   >
                     <div className="space-y-1 flex-1">
                       <div className="flex items-center gap-2">
-                        <OpportunityIcon logo={opp.logo} className="w-5 h-5 text-purple-400" />
+                        <OpportunityIcon logo={opp.logo} className="w-5 h-5 text-purple-600" />
                         <h4 className="font-bold text-sm text-zinc-880 dark:text-zinc-100">
                           {opp.title}
                         </h4>
                       </div>
-                      <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                      <div className="text-xs text-zinc-500 dark:text-zinc-600">
                         {opp.provider} • {opp.location}
                       </div>
 
                       {/* Matching breakdown details */}
-                      <div className="text-[11px] text-zinc-400 pt-1">
-                        <span className="font-semibold text-purple-600 dark:text-purple-300">
+                      <div className="text-[11px] text-zinc-600 pt-1">
+                        <span className="font-semibold text-purple-600 dark:text-purple-700">
                           {overlappingSkills.length} overlapping skills
                         </span>{" "}
                         • {missingCount > 0 ? `${missingCount} missing skills` : "100% matched!"}
@@ -317,7 +317,7 @@ export const MatchingTab: React.FC = () => {
                     </div>
 
                     <div className="flex md:flex-col items-center md:items-end justify-between w-full md:w-auto border-t md:border-t-0 pt-2.5 md:pt-0 border-purple-500/5">
-                      <div className="text-xs font-bold bg-purple-600/10 text-purple-600 dark:text-purple-300 px-2.5 py-1 rounded-xl">
+                      <div className="text-xs font-bold bg-purple-600/10 text-purple-600 dark:text-purple-700 px-2.5 py-1 rounded-xl">
                         {score}% Fit
                       </div>
                       {/* Fit Score Progress Bar */}
@@ -338,14 +338,14 @@ export const MatchingTab: React.FC = () => {
           {recommendedSkills.length > 0 && (
             <div className="glass-panel rounded-3xl p-5 space-y-4">
               <div className="flex gap-2 items-center">
-                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-300 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-700 flex items-center justify-center">
                   <AlertCircle className="w-4 h-4" />
                 </div>
-                <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-200">
+                <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-800">
                   Skill Gap & Training Recommender
                 </h3>
               </div>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-zinc-600">
                 These skills are highly requested by the opportunities on PEET but missing from your profile. Enroll in these linked courses to build skills.
               </p>
 
@@ -355,12 +355,12 @@ export const MatchingTab: React.FC = () => {
                   return (
                     <div
                       key={skill}
-                      className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-900/30 border border-purple-500/5 flex flex-col md:flex-row justify-between gap-3"
+                      className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-100/40 border border-purple-500/5 flex flex-col md:flex-row justify-between gap-3"
                     >
                       <div className="space-y-1 flex-1">
                         <div className="flex items-center gap-2">
                           <span className="w-2 h-2 rounded-full bg-purple-500"></span>
-                          <span className="text-xs font-bold text-zinc-880 dark:text-zinc-200 uppercase tracking-wider">
+                          <span className="text-xs font-bold text-zinc-880 dark:text-zinc-800 uppercase tracking-wider">
                             {skill}
                           </span>
                           <span className={`text-[8px] font-extrabold uppercase px-1 py-0.2 rounded border ${
@@ -372,9 +372,9 @@ export const MatchingTab: React.FC = () => {
                           </span>
                         </div>
                         {/* Course info */}
-                        <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+                        <div className="flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-600">
                           <BookOpen className="w-3.5 h-3.5 text-purple-600/60" />
-                          <span className="font-medium text-zinc-700 dark:text-zinc-300">{course.title}</span>
+                          <span className="font-medium text-zinc-700 dark:text-purple-800">{course.title}</span>
                           <span>•</span>
                           <span className="text-[10px]">{course.provider} ({course.cost})</span>
                         </div>
@@ -390,7 +390,7 @@ export const MatchingTab: React.FC = () => {
                             setStatusMessage(`Added ${skill}! Match percentages recalculated.`);
                             setTimeout(() => setStatusMessage(""), 2000);
                           }}
-                          className="px-3 py-1.5 bg-purple-600/10 text-purple-600 dark:text-purple-300 rounded-lg text-xs font-bold hover:bg-purple-600/20 transition-colors"
+                          className="px-3 py-1.5 bg-purple-600/10 text-purple-600 dark:text-purple-700 rounded-lg text-xs font-bold hover:bg-purple-600/20 transition-colors"
                         >
                           Add Skill
                         </button>

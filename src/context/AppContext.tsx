@@ -264,7 +264,7 @@ const initialCommunityPosts: CommunityPost[] = [
 ];
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [userType, setUserType] = useState<"seeker" | "provider" | "admin">("seeker");
   const [seekerProfile, setSeekerProfile] = useState<SeekerProfile>(initialProfile);
   const [user, setUser] = useState<User | null>(null);
@@ -383,13 +383,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Load state from localStorage on mount (optional but useful)
   useEffect(() => {
-    const savedTheme = localStorage.getItem("peet_theme") as "light" | "dark" | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.className = savedTheme;
-    } else {
-      document.documentElement.className = "dark";
-    }
+    setTheme("light");
+    document.documentElement.className = "light";
 
     const savedUserType = localStorage.getItem("peet_usertype") as "seeker" | "provider" | "admin" | null;
     if (savedUserType) {
@@ -447,10 +442,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    localStorage.setItem("peet_theme", nextTheme);
-    document.documentElement.className = nextTheme;
+    // Stick strictly with light mode
+    setTheme("light");
+    document.documentElement.className = "light";
+    localStorage.setItem("peet_theme", "light");
   };
 
   const handleSetUserType = (type: "seeker" | "provider" | "admin") => {

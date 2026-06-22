@@ -57,7 +57,7 @@ export const AdminTab: React.FC = () => {
         <h1 className="text-3xl font-extrabold tracking-tight">
           Admin Portal & <span className="text-gradient">Control Center</span>
         </h1>
-        <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+        <p className="text-zinc-500 dark:text-zinc-600 dark:text-zinc-600 dark:text-zinc-600 text-sm">
           Audit opportunities, broadcast announcements, and monitor engagement statistics.
         </p>
       </div>
@@ -65,43 +65,43 @@ export const AdminTab: React.FC = () => {
       {/* Analytics grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="glass-panel rounded-3xl p-5 border border-purple-500/5 space-y-1">
-          <span className="text-zinc-400 text-xs font-bold block flex items-center gap-1">
+          <span className="text-zinc-600 dark:text-zinc-600 text-xs font-bold block flex items-center gap-1">
             <BarChart3 className="w-3.5 h-3.5 text-purple-500" />
             Total Listings
           </span>
           <span className="text-3xl font-extrabold text-gradient">{totalOppCount}</span>
-          <span className="text-[10px] text-zinc-500 block">Mixed opportunity listings</span>
+          <span className="text-[10px] text-zinc-500 dark:text-zinc-600 block">Mixed opportunity listings</span>
         </div>
 
         <div className="glass-panel rounded-3xl p-5 border border-purple-500/5 space-y-1">
-          <span className="text-zinc-400 text-xs font-bold block flex items-center gap-1">
+          <span className="text-zinc-600 dark:text-zinc-600 text-xs font-bold block flex items-center gap-1">
             <Users className="w-3.5 h-3.5 text-purple-500" />
             Active Applicants
           </span>
-          <span className="text-3xl font-extrabold text-zinc-700 dark:text-zinc-200">
+          <span className="text-3xl font-extrabold text-zinc-700 dark:text-zinc-800">
             {applications.length + 15}
           </span>
-          <span className="text-[10px] text-zinc-500 block">Registered seeker profiles</span>
+          <span className="text-[10px] text-zinc-500 dark:text-zinc-600 block">Registered seeker profiles</span>
         </div>
 
         <div className="glass-panel rounded-3xl p-5 border border-purple-500/5 space-y-1">
-          <span className="text-zinc-400 text-xs font-bold block flex items-center gap-1">
+          <span className="text-zinc-600 dark:text-zinc-600 text-xs font-bold block flex items-center gap-1">
             <MessageSquare className="w-3.5 h-3.5 text-purple-500" />
             Forum Posts
           </span>
-          <span className="text-3xl font-extrabold text-zinc-700 dark:text-zinc-200">
+          <span className="text-3xl font-extrabold text-zinc-700 dark:text-zinc-800">
             {communityPosts.length}
           </span>
-          <span className="text-[10px] text-zinc-500 block">Community discussions</span>
+          <span className="text-[10px] text-zinc-500 dark:text-zinc-600 block">Community discussions</span>
         </div>
 
         <div className="glass-panel rounded-3xl p-5 border border-purple-500/5 space-y-1">
-          <span className="text-zinc-400 text-xs font-bold block">Opportunity Split</span>
+          <span className="text-zinc-600 dark:text-zinc-600 text-xs font-bold block">Opportunity Split</span>
           <div className="flex gap-2 text-[10px] font-bold pt-1.5">
-            <span className="text-purple-400">J: {jobCount}</span>
-            <span className="text-zinc-550 dark:text-zinc-500">•</span>
+            <span className="text-purple-600">J: {jobCount}</span>
+            <span className="text-zinc-550 dark:text-zinc-500 dark:text-zinc-600">•</span>
             <span className="text-emerald-400">E: {courseCount}</span>
-            <span className="text-zinc-550 dark:text-zinc-500">•</span>
+            <span className="text-zinc-550 dark:text-zinc-500 dark:text-zinc-600">•</span>
             <span className="text-amber-400">T: {trainingCount}</span>
           </div>
         </div>
@@ -114,7 +114,7 @@ export const AdminTab: React.FC = () => {
           <div className="glass-panel rounded-3xl p-6 space-y-4">
             <div>
               <h3 className="font-extrabold text-base text-zinc-800 dark:text-zinc-100">Pending & Verified Opportunities</h3>
-              <p className="text-xs text-zinc-400">Approve new training programs or remove old posts.</p>
+              <p className="text-xs text-zinc-600 dark:text-zinc-600">Approve new training programs or remove old posts.</p>
             </div>
 
             <div className="space-y-3">
@@ -123,7 +123,7 @@ export const AdminTab: React.FC = () => {
                 return (
                   <div
                     key={opp.id}
-                    className="p-4 bg-zinc-50/50 dark:bg-zinc-900/30 rounded-2xl border border-purple-500/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 group"
+                    className="p-4 bg-zinc-50/50 dark:bg-zinc-100 dark:bg-zinc-100/40 rounded-2xl border border-purple-500/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 group"
                   >
                     <div className="flex gap-3 items-start flex-1">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl border shrink-0 ${
@@ -131,13 +131,13 @@ export const AdminTab: React.FC = () => {
                           ? "bg-emerald-500/10 border-emerald-500/10 text-emerald-450"
                           : opp.type === "training"
                           ? "bg-amber-500/10 border-amber-500/10 text-amber-450"
-                          : "bg-purple-500/10 border-purple-500/10 text-purple-450"
+                          : "bg-purple-500/10 border-purple-200/50 text-purple-450"
                       }`}>
                         <OpportunityIcon logo={opp.logo} className="w-4 h-4" />
                       </div>
                       <div>
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <h4 className="font-bold text-sm text-zinc-850 dark:text-zinc-150">
+                          <h4 className="font-bold text-sm text-zinc-850 dark:text-zinc-900">
                             {opp.title}
                           </h4>
                           <span className={`text-[8px] font-extrabold uppercase px-1 py-0.5 rounded tracking-wider border ${
@@ -145,12 +145,12 @@ export const AdminTab: React.FC = () => {
                               ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/10"
                               : opp.type === "training"
                               ? "bg-amber-500/10 text-amber-400 border-amber-500/10"
-                              : "bg-purple-500/10 text-purple-400 border-purple-500/10"
+                              : "bg-purple-500/10 text-purple-600 border-purple-200/50"
                           }`}>
                             {opp.type}
                           </span>
                         </div>
-                        <div className="text-[11px] text-zinc-550 dark:text-zinc-500">
+                        <div className="text-[11px] text-zinc-550 dark:text-zinc-500 dark:text-zinc-600">
                           {opp.provider} • {opp.location} • {opp.salaryOrCost}
                         </div>
                       </div>
@@ -171,7 +171,7 @@ export const AdminTab: React.FC = () => {
                       )}
                       <button
                         onClick={() => deleteOpportunity(opp.id)}
-                        className="p-1.5 text-zinc-400 hover:text-red-500 rounded-lg hover:bg-red-500/5 transition-all"
+                        className="p-1.5 text-zinc-600 dark:text-zinc-600 hover:text-red-500 rounded-lg hover:bg-red-500/5 transition-all"
                         aria-label={`Delete opportunity ${opp.title}`}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -188,12 +188,12 @@ export const AdminTab: React.FC = () => {
         <div className="space-y-6">
           <div className="glass-panel rounded-3xl p-5 space-y-4">
             <div className="flex gap-2 items-center">
-              <div className="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-300">
+              <div className="p-2 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-700">
                 <Bell className="w-4 h-4" />
               </div>
-              <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-200">Broadcast Alerts</h3>
+              <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-800">Broadcast Alerts</h3>
             </div>
-            <p className="text-xs text-zinc-400 font-medium">
+            <p className="text-xs text-zinc-600 dark:text-zinc-600 font-medium">
               Send a system-wide banner notification to all registered candidates' alert dropdowns.
             </p>
 
@@ -203,15 +203,15 @@ export const AdminTab: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAnnouncementDropdownOpen(!isAnnouncementDropdownOpen)}
-                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-purple-500/10 text-xs text-left flex items-center justify-between text-zinc-700 dark:text-zinc-300 transition-all select-none cursor-pointer"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 rounded-xl border border-zinc-200 dark:border-purple-200/50 text-xs text-left flex items-center justify-between text-zinc-700 dark:text-zinc-700 dark:text-purple-800 transition-all select-none cursor-pointer"
                 >
                   <span>{announcementType === "info" ? "General Info Announcement" : "Urgent Job Match Alert"}</span>
-                  <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform ${isAnnouncementDropdownOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-4 h-4 text-zinc-600 dark:text-zinc-600 transition-transform ${isAnnouncementDropdownOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isAnnouncementDropdownOpen && (
                   <>
                     <div className="fixed inset-0 z-30" onClick={() => setIsAnnouncementDropdownOpen(false)} />
-                    <div className="absolute top-full left-0 right-0 mt-1 z-40 max-h-40 overflow-y-auto glass-panel rounded-xl p-1.5 border border-purple-500/20 shadow-xl scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+                    <div className="absolute top-full left-0 right-0 mt-1 z-40 max-h-40 overflow-y-auto glass-panel rounded-xl p-1.5 border border-purple-200 shadow-xl scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
                       {[
                         { value: "info", label: "General Info Announcement" },
                         { value: "match", label: "Urgent Job Match Alert" }
@@ -226,7 +226,7 @@ export const AdminTab: React.FC = () => {
                           className={`w-full text-left px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
                             announcementType === ann.value
                               ? "bg-purple-650 text-white"
-                              : "text-zinc-400 hover:text-zinc-250 hover:bg-purple-500/10"
+                              : "text-zinc-600 dark:text-zinc-600 hover:text-zinc-250 hover:bg-purple-500/10"
                           }`}
                         >
                           {ann.label}
@@ -238,32 +238,32 @@ export const AdminTab: React.FC = () => {
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-zinc-450 block mb-1">Notification Title</label>
+                <label className="text-[10px] font-bold text-zinc-500 block mb-1">Notification Title</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Platform system maintenance"
                   value={announcementTitle}
                   onChange={(e) => setAnnouncementTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-purple-500/10 text-xs"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 rounded-xl border border-zinc-200 dark:border-purple-200/50 text-xs"
                 />
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-zinc-450 block mb-1">Detailed Message</label>
+                <label className="text-[10px] font-bold text-zinc-500 block mb-1">Detailed Message</label>
                 <textarea
                   rows={4}
                   required
                   placeholder="e.g. We will undergo planned maintenance on June 12th from 2:00 to 4:00 AM UTC..."
                   value={announcementMsg}
                   onChange={(e) => setAnnouncementMsg(e.target.value)}
-                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-purple-500/10 text-xs resize-none"
+                  className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 rounded-xl border border-zinc-200 dark:border-purple-200/50 text-xs resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition-colors shadow-sm"
+                className="w-full py-2.5 bg-purple-600 text-white rounded-xl text-xs font-bold transition-colors shadow-sm"
               >
                 Send Notification Broadcast
               </button>
@@ -280,3 +280,4 @@ export const AdminTab: React.FC = () => {
     </div>
   );
 };
+

@@ -284,7 +284,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
       {/* Background glow dot */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-600/5 blur-[100px] rounded-full pointer-events-none -z-10"></div>
 
-      <div className="w-full max-w-md glass-panel rounded-3xl overflow-hidden shadow-2xl border border-purple-500/20 p-6 sm:p-8 animate-scale-up space-y-6">
+      <div className="w-full max-w-md glass-panel rounded-3xl overflow-hidden shadow-2xl border border-purple-200 p-6 sm:p-8 animate-scale-up space-y-6">
         
         {/* Error notification */}
         {error && (
@@ -297,13 +297,13 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
         {/* Tab 1: Email Verification Pending */}
         {tab === "verify" ? (
           <div className="space-y-5 text-center py-4">
-            <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto text-purple-400">
+            <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto text-purple-600">
               <Mail className="w-6 h-6 animate-pulse" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-extrabold text-base text-zinc-150">Verify Your Email</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed max-w-xs mx-auto">
-                We've sent a verification link to <span className="font-bold text-purple-300">{email || (auth?.currentUser?.email)}</span>. Click the link inside the email to activate your account.
+              <h3 className="font-extrabold text-base text-zinc-900">Verify Your Email</h3>
+              <p className="text-xs text-zinc-600 leading-relaxed max-w-xs mx-auto">
+                We've sent a verification link to <span className="font-bold text-purple-700">{email || (auth?.currentUser?.email)}</span>. Click the link inside the email to activate your account.
               </p>
             </div>
 
@@ -319,7 +319,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
               <button
                 type="button"
                 onClick={handleResendVerification}
-                className="w-full py-2.5 bg-zinc-900/50 hover:bg-zinc-850 text-zinc-400 border border-purple-500/5 rounded-2xl text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                className="w-full py-2.5 bg-zinc-100/60 hover:bg-zinc-200 text-zinc-600 border border-purple-500/5 rounded-2xl text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 Resend Verification Link
@@ -334,7 +334,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
 
             <button
               onClick={() => setTab("signup")}
-              className="text-[10px] font-bold text-zinc-500 hover:text-zinc-300 transition-colors block mx-auto pt-2 cursor-pointer"
+              className="text-[10px] font-bold text-zinc-500 hover:text-purple-800 transition-colors block mx-auto pt-2 cursor-pointer"
             >
               Back to Sign Up
             </button>
@@ -343,11 +343,11 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
           /* Tab 2: New Google User Role Selection */
           <div className="space-y-5 py-4">
             <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto text-purple-400">
+              <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto text-purple-600">
                 <UserCheck className="w-6 h-6" />
               </div>
-              <h3 className="font-extrabold text-base text-zinc-150">Select Your Account Type</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed max-w-xs mx-auto">
+              <h3 className="font-extrabold text-base text-zinc-900">Select Your Account Type</h3>
+              <p className="text-xs text-zinc-600 leading-relaxed max-w-xs mx-auto">
                 Welcome! Choose your primary objective on PEET AI to set up your interface.
               </p>
             </div>
@@ -358,8 +358,8 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                 onClick={() => setUserType("seeker")}
                 className={`p-4 rounded-2xl border transition-all text-center space-y-2 cursor-pointer flex flex-col items-center justify-center ${
                   userType === "seeker"
-                    ? "bg-purple-650/10 border-purple-500 text-purple-300"
-                    : "bg-zinc-900/30 border-purple-500/5 text-zinc-500 hover:border-purple-500/10 hover:text-zinc-400"
+                    ? "bg-purple-650/10 border-purple-500 text-purple-700"
+                    : "bg-zinc-100/40 border-purple-500/5 text-zinc-500 hover:border-purple-200/50 hover:text-zinc-600"
                 }`}
               >
                 <User className="w-5 h-5" />
@@ -370,8 +370,8 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                 onClick={() => setUserType("provider")}
                 className={`p-4 rounded-2xl border transition-all text-center space-y-2 cursor-pointer flex flex-col items-center justify-center ${
                   userType === "provider"
-                    ? "bg-purple-650/10 border-purple-500 text-purple-300"
-                    : "bg-zinc-900/30 border-purple-500/5 text-zinc-500 hover:border-purple-500/10 hover:text-zinc-400"
+                    ? "bg-purple-650/10 border-purple-500 text-purple-700"
+                    : "bg-zinc-100/40 border-purple-500/5 text-zinc-500 hover:border-purple-200/50 hover:text-zinc-600"
                 }`}
               >
                 <UserCheck className="w-5 h-5" />
@@ -393,7 +393,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
           /* Tab 3: Standard Login / Sign Up Forms */
           <>
             {/* Switcher headers */}
-            <div className="flex border-b border-purple-500/10 justify-center">
+            <div className="flex border-b border-purple-200/50 justify-center">
               <button
                 onClick={() => {
                   setTab("login");
@@ -401,7 +401,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                 }}
                 className={`flex-1 pb-3 text-xs sm:text-sm font-bold border-b-2 transition-all ${
                   tab === "login"
-                    ? "border-purple-600 text-purple-600 dark:text-purple-300"
+                    ? "border-purple-600 text-purple-600 dark:text-purple-700"
                     : "border-transparent text-zinc-500 hover:text-purple-600"
                 }`}
               >
@@ -414,7 +414,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                 }}
                 className={`flex-1 pb-3 text-xs sm:text-sm font-bold border-b-2 transition-all ${
                   tab === "signup"
-                    ? "border-purple-600 text-purple-600 dark:text-purple-300"
+                    ? "border-purple-600 text-purple-600 dark:text-purple-700"
                     : "border-transparent text-zinc-500 hover:text-purple-600"
                 }`}
               >
@@ -425,13 +425,13 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
             {/* Perspective Toggle (Seeker vs Provider) - Signup only */}
             {tab === "signup" && (
               <div className="space-y-2 text-center pb-2">
-                <div className="inline-flex bg-zinc-100 dark:bg-zinc-900 p-1 rounded-xl border border-zinc-200 dark:border-purple-500/10">
+                <div className="inline-flex bg-zinc-100 dark:bg-zinc-100 p-1 rounded-xl border border-zinc-200 dark:border-purple-200/50">
                   <button
                     type="button"
                     onClick={() => setUserType("seeker")}
                     className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       userType === "seeker"
-                        ? "bg-white dark:bg-zinc-800 text-purple-650 dark:text-purple-300 shadow-sm"
+                        ? "bg-white dark:bg-zinc-800 text-purple-650 dark:text-purple-700 shadow-sm"
                         : "text-zinc-550"
                     }`}
                   >
@@ -442,7 +442,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                     onClick={() => setUserType("provider")}
                     className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       userType === "provider"
-                        ? "bg-white dark:bg-zinc-800 text-purple-650 dark:text-purple-300 shadow-sm"
+                        ? "bg-white dark:bg-zinc-800 text-purple-650 dark:text-purple-700 shadow-sm"
                         : "text-zinc-550"
                     }`}
                   >
@@ -456,7 +456,7 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
             <form onSubmit={handleSubmit} className="space-y-4 pt-2">
               {tab === "signup" && (
                 <div>
-                  <label className="text-[10px] font-bold text-zinc-400 block mb-1">Full Name</label>
+                  <label className="text-[10px] font-bold text-zinc-600 block mb-1">Full Name</label>
                   <div className="relative flex items-center">
                     <User className="absolute left-3 w-4 h-4 text-purple-500" />
                     <input
@@ -465,14 +465,14 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                       placeholder="e.g. John Doe"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-purple-500/10 text-xs focus:outline-none focus:ring-1 focus:ring-purple-600 text-zinc-750 dark:text-zinc-150"
+                      className="w-full pl-9 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-100/60 rounded-xl border border-zinc-200 dark:border-purple-200/50 text-xs focus:outline-none focus:ring-1 focus:ring-purple-600 text-zinc-750 dark:text-zinc-900"
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="text-[10px] font-bold text-zinc-400 block mb-1">Email Address</label>
+                <label className="text-[10px] font-bold text-zinc-600 block mb-1">Email Address</label>
                 <div className="relative flex items-center">
                   <Mail className="absolute left-3 w-4 h-4 text-purple-500" />
                   <input
@@ -481,13 +481,13 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                     placeholder="e.g. name@company.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-purple-500/10 text-xs focus:outline-none focus:ring-1 focus:ring-purple-600 text-zinc-750 dark:text-zinc-150"
+                    className="w-full pl-9 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-100/60 rounded-xl border border-zinc-200 dark:border-purple-200/50 text-xs focus:outline-none focus:ring-1 focus:ring-purple-600 text-zinc-750 dark:text-zinc-900"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-zinc-400 block mb-1">Password</label>
+                <label className="text-[10px] font-bold text-zinc-600 block mb-1">Password</label>
                 <div className="relative flex items-center">
                   <Lock className="absolute left-3 w-4 h-4 text-purple-500" />
                   <input
@@ -496,13 +496,13 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 rounded-xl border border-zinc-200 dark:border-purple-500/10 text-xs focus:outline-none focus:ring-1 focus:ring-purple-600 text-zinc-750 dark:text-zinc-150"
+                    className="w-full pl-9 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-100/60 rounded-xl border border-zinc-200 dark:border-purple-200/50 text-xs focus:outline-none focus:ring-1 focus:ring-purple-600 text-zinc-750 dark:text-zinc-900"
                   />
                 </div>
               </div>
 
               {tab === "signup" && (
-                <div className="text-[10px] text-zinc-400 flex items-start gap-1.5 pt-1">
+                <div className="text-[10px] text-zinc-600 flex items-start gap-1.5 pt-1">
                   <input type="checkbox" required className="mt-0.5 accent-purple-600" />
                   <span>
                     I agree to the terms of service and consent to AI processing of my uploaded resumes.
@@ -528,16 +528,16 @@ export const Auth: React.FC<AuthProps> = ({ initialTab, setActivePage }) => {
 
             {/* Google Authentication Section */}
             <div className="relative flex py-2 items-center">
-              <div className="flex-grow border-t border-purple-500/10"></div>
+              <div className="flex-grow border-t border-purple-200/50"></div>
               <span className="flex-shrink mx-4 text-[9px] text-zinc-500 uppercase font-extrabold tracking-wider">or</span>
-              <div className="flex-grow border-t border-purple-500/10"></div>
+              <div className="flex-grow border-t border-purple-200/50"></div>
             </div>
 
             <button
               type="button"
               onClick={handleGoogleAuth}
               disabled={loading}
-              className="w-full py-2.5 bg-zinc-900/50 hover:bg-zinc-850 text-zinc-200 border border-purple-500/10 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-2 hover:border-purple-500/30 cursor-pointer"
+              className="w-full py-2.5 bg-zinc-100/60 hover:bg-zinc-200 text-zinc-800 border border-purple-200/50 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-2 hover:border-purple-500/30 cursor-pointer"
             >
               <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M23.745 12.27c0-.77-.07-1.54-.19-2.27H12v4.51h6.6c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.69-5.17 3.69-8.82z" />
