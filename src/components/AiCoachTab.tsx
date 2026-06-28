@@ -833,7 +833,7 @@ ${exp.description}`
                 </div>
                 <div>
                   <h4 className="font-extrabold text-sm text-zinc-100">PEET Career Assistant</h4>
-                  <span className="text-[10px] text-purple-600 font-extrabold uppercase tracking-widest animate-pulse flex items-center gap-1.5 mt-0.5">
+                  <span className="text-[10px] text-purple-600 font-extrabold uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-450 inline-block animate-ping"></span>
                     AI Agent Online
                   </span>
@@ -1007,7 +1007,7 @@ ${exp.description}`
                 className="w-full py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:from-purple-600/40 disabled:to-indigo-600/40 text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isGeneratingCV ? (
-                  <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span>
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4 fill-white" />
@@ -1208,7 +1208,7 @@ ${exp.description}`
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-10 text-zinc-500 space-y-4 border border-dashed border-purple-500/15 rounded-2xl bg-zinc-100/20">
                 <div className="relative">
-                  <div className="absolute inset-0 w-16 h-16 bg-purple-500/10 rounded-full blur-xl animate-pulse" />
+                  <div className="absolute inset-0 w-16 h-16 bg-purple-500/10 rounded-full blur-xl" />
                   <FileText className="w-12 h-12 text-purple-500/40 relative z-10" />
                 </div>
                 <div className="space-y-1 max-w-sm">
@@ -1342,7 +1342,7 @@ ${exp.description}`
                 className="w-full py-4 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 disabled:from-purple-600/40 disabled:to-indigo-600/40 text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isGeneratingLetter ? (
-                  <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"></span>
                 ) : (
                   <>
                     <Sparkles className="w-4 h-4 fill-white" />
@@ -1543,7 +1543,7 @@ ${exp.description}`
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-10 text-zinc-500 space-y-4 border border-dashed border-purple-500/15 rounded-2xl bg-zinc-100/20">
                 <div className="relative">
-                  <div className="absolute inset-0 w-16 h-16 bg-purple-500/10 rounded-full blur-xl animate-pulse" />
+                  <div className="absolute inset-0 w-16 h-16 bg-purple-500/10 rounded-full blur-xl" />
                   <Briefcase className="w-12 h-12 text-purple-500/40 relative z-10" />
                 </div>
                 <div className="space-y-1 max-w-sm">

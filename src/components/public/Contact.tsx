@@ -123,7 +123,7 @@ export const Contact: React.FC = () => {
           </button>
 
           {success && (
-            <div className="text-center text-xs font-bold text-emerald-500 bg-emerald-500/10 p-2.5 rounded-xl animate-pulse flex items-center justify-center gap-1">
+            <div className="text-center text-xs font-bold text-emerald-500 bg-emerald-500/10 p-2.5 rounded-xl flex items-center justify-center gap-1">
               <Check className="w-4 h-4" /> Message delivered successfully! We'll reply within 12 hours.
             </div>
           )}

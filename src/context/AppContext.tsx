@@ -11,6 +11,7 @@ export interface Opportunity {
   title: string;
   provider: string; // company or institution
   logo: string;
+  imageUrl?: string; // High-res image or company logo if available
   location: string;
   salaryOrCost: string; // e.g., "$120,000", "Free", "$2,000"
   salaryNum: number; // For sorting/filtering
@@ -48,6 +49,7 @@ export interface Application {
 }
 
 export interface SeekerProfile {
+  avatar?: string;
   name: string;
   title: string;
   email: string;
@@ -115,6 +117,40 @@ export interface CommunityPost {
   date: string;
 }
 
+export interface CareerGoal {
+  id: string;
+  title: string;
+  description?: string;
+  targetDate: string;
+  category: string;
+  status: "active" | "completed";
+  progress: number;
+  createdAt: string;
+}
+
+export interface Milestone {
+  id: string;
+  goalId: string;
+  title: string;
+  description: string;
+  order: number;
+  completionPercentage: number;
+  estimatedDuration: string;
+  completed: boolean;
+}
+
+export interface DailyMIT {
+  id: string;
+  milestoneId: string;
+  title: string;
+  isBigWin: boolean;
+  estimatedDuration: string;
+  priority: "High" | "Medium" | "Low";
+  dueDate: string;
+  completed: boolean;
+  notes: string;
+}
+
 interface AppContextType {
   // Theme & User Perspective
   theme: "light" | "dark";
@@ -132,6 +168,14 @@ interface AppContextType {
   setSeekerCVContent: (content: string) => void;
   seekerCoverLetter: string;
   setSeekerCoverLetter: (letter: string) => void;
+
+  // Career Goals (MIT System)
+  careerGoal: CareerGoal | null;
+  setCareerGoal: (goal: CareerGoal | null) => Promise<void>;
+  milestones: Milestone[];
+  updateMilestones: (milestones: Milestone[]) => Promise<void>;
+  dailyMITs: DailyMIT[];
+  updateDailyMITs: (mits: DailyMIT[]) => Promise<void>;
 
   // Chatbot & Career suite
   chatMessages: Message[];
@@ -192,6 +236,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 const initialOpportunities: Opportunity[] = [];
 
 const initialProfile: SeekerProfile = {
+  avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
   name: "",
   title: "",
   email: "",
@@ -277,6 +322,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [applications, setApplications] = useState<Application[]>(initialApplications);
   const [notifications, setNotifications] = useState<Notification[]>(initialNotifications);
   const [communityPosts, setCommunityPosts] = useState<CommunityPost[]>(initialCommunityPosts);
+
+  // MIT Goals State
+  const [careerGoal, setCareerGoal] = useState<CareerGoal | null>(null);
+  const [milestones, setMilestones] = useState<Milestone[]>([]);
+  const [dailyMITs, setDailyMITs] = useState<DailyMIT[]>([]);
 
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
   const [jobAlerts, setJobAlerts] = useState<JobAlert[]>([]);
@@ -421,13 +471,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               bio: data.bio || prev.bio || "",
               skills: data.skills || prev.skills || [],
               experience: data.experience || prev.experience || [],
-              education: data.education || prev.education || []
+              education: data.education || prev.education || [],
+              avatar: firebaseUser.photoURL || prev.avatar
             }));
+            
+            if (data.careerGoal) setCareerGoal(data.careerGoal);
+            if (data.milestones) setMilestones(data.milestones);
+            if (data.dailyMITs) setDailyMITs(data.dailyMITs);
           } else {
             setSeekerProfile((prev) => ({
               ...prev,
               name: firebaseUser.displayName || prev.name || "",
               email: firebaseUser.email || prev.email || "",
+              avatar: firebaseUser.photoURL || prev.avatar
             }));
           }
         } catch (err) {
@@ -453,24 +509,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem("peet_usertype", type);
   };
 
-  const updateSeekerProfile = async (profile: SeekerProfile) => {
-    setSeekerProfile(profile);
-    if (user && isConfigured && db) {
+  const updateSeekerProfile = async (newProfile: SeekerProfile) => {
+    setSeekerProfile(newProfile);
+    if (isConfigured && user) {
       try {
-        await setDoc(doc(db, "users", user.uid), {
-          name: profile.name,
-          email: profile.email,
-          phone: profile.phone,
-          title: profile.title,
-          bio: profile.bio,
-          skills: profile.skills,
-          experience: profile.experience,
-          education: profile.education,
-          role: userType
-        }, { merge: true });
+        await setDoc(doc(db!, "users", user.uid), { ...newProfile }, { merge: true });
       } catch (err) {
         console.error("Error updating user profile in firestore:", err);
       }
+    }
+  };
+
+  const handleSetCareerGoal = async (goal: CareerGoal | null) => {
+    setCareerGoal(goal);
+    if (isConfigured && user) {
+      try {
+        await setDoc(doc(db!, "users", user.uid), { careerGoal: goal }, { merge: true });
+      } catch (err) { console.error(err); }
+    }
+  };
+
+  const handleUpdateMilestones = async (newMilestones: Milestone[]) => {
+    setMilestones(newMilestones);
+    if (isConfigured && user) {
+      try {
+        await setDoc(doc(db!, "users", user.uid), { milestones: newMilestones }, { merge: true });
+      } catch (err) { console.error(err); }
+    }
+  };
+
+  const handleUpdateDailyMITs = async (mits: DailyMIT[]) => {
+    setDailyMITs(mits);
+    if (isConfigured && user) {
+      try {
+        await setDoc(doc(db!, "users", user.uid), { dailyMITs: mits }, { merge: true });
+      } catch (err) { console.error(err); }
     }
   };
 
@@ -772,6 +845,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setSeekerCVContent,
         seekerCoverLetter,
         setSeekerCoverLetter,
+        careerGoal,
+        setCareerGoal: handleSetCareerGoal,
+        milestones,
+        updateMilestones: handleUpdateMilestones,
+        dailyMITs,
+        updateDailyMITs: handleUpdateDailyMITs,
         chatMessages,
         sendChatMessage,
         clearChat,

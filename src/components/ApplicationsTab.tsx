@@ -43,7 +43,7 @@ export const ApplicationsTab: React.FC = () => {
       {applications.length === 0 ? (
         <div className="glass-panel rounded-3xl p-16 text-center max-w-lg mx-auto space-y-4">
           <div className="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-100 flex items-center justify-center mx-auto text-zinc-600">
-            <FolderKanban className="w-6 h-6 animate-pulse" />
+            <FolderKanban className="w-6 h-6" />
           </div>
           <div className="space-y-1">
             <h3 className="font-bold text-lg">No active applications</h3>

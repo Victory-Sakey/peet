@@ -13,7 +13,7 @@ export const AiSuitePage: React.FC<AiSuitePageProps> = ({ setActivePage }) => {
     <div className="space-y-6 pt-6">
       {/* Visual Header */}
       <div className="max-w-7xl mx-auto px-4 text-center space-y-2">
-        <div className="inline-flex items-center gap-1 bg-purple-600/10 text-purple-600 px-2.5 py-1 rounded text-[10px] font-bold border border-purple-200/50 uppercase tracking-widest animate-pulse">
+        <div className="inline-flex items-center gap-1 bg-purple-600/10 text-purple-600 px-2.5 py-1 rounded text-[10px] font-bold border border-purple-200/50 uppercase tracking-widest">
           <Sparkles className="w-3 h-3 fill-purple-400" />
           Interactive Product sandbox
         </div>

@@ -3,6 +3,8 @@ import { Opportunity } from "@/context/AppContext";
 import { db, isConfigured } from "@/lib/firebase";
 import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
 
+export const dynamic = 'force-dynamic';
+
 // Mock Opportunities Database in case API credentials are missing or for non-job listings
 const mockOpportunitiesDb: Opportunity[] = [];
 
@@ -12,7 +14,7 @@ async function fetchJoobleJobs(keyword: string, location: string, category: stri
     const payload = {
       keywords: keyword ? `${keyword} ${category !== "All" ? category : ""}`.trim() : (category !== "All" ? category : "Software Developer"),
       location: location || "",
-      ResultOnPage: 8
+      ResultOnPage: 50
     };
 
     const res = await fetch(url, {
@@ -64,11 +66,15 @@ async function fetchJoobleJobs(keyword: string, location: string, category: stri
         skills.push("Software Engineering", "Problem Solving");
       }
 
+      const companyClean = item.company || "Confidential Employer";
+      const clearbitUrl = `https://logo.clearbit.com/${companyClean.replace(/[^a-zA-Z0-9]/g, "").toLowerCase()}.com`;
+
       return {
         id: `jooble-${item.id}`,
         title: titleClean,
-        provider: item.company || "Confidential Employer",
+        provider: companyClean,
         logo,
+        imageUrl: clearbitUrl,
         location: item.location || "Remote",
         salaryOrCost: salary,
         salaryNum,
@@ -106,7 +112,7 @@ function decodeHtmlEntities(str: string): string {
 async function fetchYoutubeCourses(keyword: string, category: string, apiKey: string): Promise<Opportunity[]> {
   try {
     const queryTerm = keyword ? `${keyword} ${category !== "All" ? category : ""}`.trim() : (category !== "All" ? category : "Software Development");
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&q=${encodeURIComponent(queryTerm + " tutorial course")}&type=video&key=${apiKey}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${encodeURIComponent(queryTerm + " tutorial course")}&type=video&key=${apiKey}`;
 
     const res = await fetch(url);
     if (!res.ok) {
@@ -149,11 +155,14 @@ async function fetchYoutubeCourses(keyword: string, category: string, apiKey: st
         skills.push("Development Skills", "Industry Best Practices");
       }
 
+      const imageUrl = item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.medium?.url || item.snippet.thumbnails?.default?.url || "";
+
       return {
         id: `youtube-${videoId}`,
         title,
         provider: channelTitle,
         logo,
+        imageUrl,
         location: "Remote",
         salaryOrCost: "Free",
         salaryNum: 0,
@@ -180,7 +189,20 @@ async function fetchYoutubeCourses(keyword: string, category: string, apiKey: st
   }
 }
 
+// Simple in-memory cache for API requests
+const searchCache = new Map<string, { timestamp: number, data: any }>();
+const CACHE_TTL = 1000 * 60 * 5; // 5 minutes
+
 export async function GET(request: Request) {
+  const urlParams = request.url.split("?")[1] || "";
+  
+  if (searchCache.has(urlParams)) {
+    const cached = searchCache.get(urlParams)!;
+    if (Date.now() - cached.timestamp < CACHE_TTL) {
+      return NextResponse.json(cached.data);
+    }
+  }
+
   const { searchParams } = new URL(request.url);
   const keyword = searchParams.get("keyword") || "";
   const location = searchParams.get("location") || "";
@@ -203,32 +225,46 @@ export async function GET(request: Request) {
   const useJooble = joobleApiKey && joobleApiKey !== "YOUR_JOOBLE_API_KEY";
   const useYoutube = youtubeApiKey && youtubeApiKey !== "YOUR_YOUTUBE_API_KEY";
 
+  const promises: Promise<void>[] = [];
+
   // 1. Fetch live jobs from Jooble if requested & key available
   if (requestedTypes.includes("job") && useJooble) {
-    apiJobs = await fetchJoobleJobs(keyword, location, category, joobleApiKey);
+    promises.push(
+      fetchJoobleJobs(keyword, location, category, joobleApiKey)
+        .then(res => { apiJobs = res; })
+        .catch(e => console.error("Jooble fetch error:", e))
+    );
   }
 
   // 2. Fetch live education/training from YouTube if requested & credentials available
   if ((requestedTypes.includes("education") || requestedTypes.includes("training")) && useYoutube) {
-    const youtubeResults = await fetchYoutubeCourses(keyword, category, youtubeApiKey);
-    apiEducation = youtubeResults.filter((opp) => requestedTypes.includes(opp.type));
+    promises.push(
+      fetchYoutubeCourses(keyword, category, youtubeApiKey)
+        .then(res => { apiEducation = res.filter((opp) => requestedTypes.includes(opp.type)); })
+        .catch(e => console.error("YouTube fetch error:", e))
+    );
   }
 
   // 3. Fetch from local database (which acts as a fallback for jobs, and primary for training/education)
   let localOpps: Opportunity[] = [];
   if (isConfigured && db) {
-    try {
-      const querySnapshot = await getDocs(collection(db, "opportunities"));
-      querySnapshot.forEach((docSnap) => {
-        localOpps.push(docSnap.data() as Opportunity);
-      });
-    } catch (e) {
-      console.error("Error fetching from Firestore, falling back to memory db:", e);
-      localOpps = mockOpportunitiesDb;
-    }
+    promises.push(
+      getDocs(collection(db, "opportunities"))
+        .then(querySnapshot => {
+          querySnapshot.forEach((docSnap) => {
+            localOpps.push(docSnap.data() as Opportunity);
+          });
+        })
+        .catch(e => {
+          console.error("Error fetching from Firestore, falling back to memory db:", e);
+          localOpps = mockOpportunitiesDb;
+        })
+    );
   } else {
     localOpps = mockOpportunitiesDb;
   }
+
+  await Promise.all(promises);
 
   const filteredLocal = localOpps.filter((opp) => {
     // Type check
@@ -294,10 +330,46 @@ export async function GET(request: Request) {
     return true;
   });
 
-  // Sort by datePosted desc
+  // Sort by datePosted desc first so latest items are interleaved first
   finalResults.sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime());
 
-  return NextResponse.json({ results: finalResults });
+  // Interleave the results across categories (jobs, education, training)
+  const grouped: Record<string, Opportunity[]> = {
+    job: [],
+    education: [],
+    training: []
+  };
+
+  finalResults.forEach((opp) => {
+    if (grouped[opp.type]) {
+      grouped[opp.type].push(opp);
+    } else {
+      grouped.job.push(opp);
+    }
+  });
+
+  const mixedResults: Opportunity[] = [];
+  let hasMore = true;
+  while (hasMore) {
+    hasMore = false;
+    if (grouped.job.length > 0) {
+      mixedResults.push(grouped.job.shift()!);
+      hasMore = true;
+    }
+    if (grouped.education.length > 0) {
+      mixedResults.push(grouped.education.shift()!);
+      hasMore = true;
+    }
+    if (grouped.training.length > 0) {
+      mixedResults.push(grouped.training.shift()!);
+      hasMore = true;
+    }
+  }
+
+  const resultData = { success: true, results: mixedResults };
+  searchCache.set(urlParams, { timestamp: Date.now(), data: resultData });
+
+  return NextResponse.json(resultData);
 }
 
 export async function POST(request: Request) {

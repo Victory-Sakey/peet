@@ -647,7 +647,7 @@ export const PostOpportunityPage: React.FC = () => {
 
                 <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-purple-200/50 gap-2">
                   <div className="flex items-center gap-1.5 sm:mb-2 bg-purple-600/10 text-purple-700 px-2 py-1 rounded-lg">
-                    <Sparkles className="w-3.5 h-3.5 fill-purple-600 dark:fill-transparent animate-pulse" />
+                    <Sparkles className="w-3.5 h-3.5 fill-purple-600 dark:fill-transparent" />
                     <span className="text-xs font-bold">{calculateMatchScore(skillsText ? skillsText.split(",") : [])}% Match</span>
                   </div>
 
@@ -671,7 +671,7 @@ export const PostOpportunityPage: React.FC = () => {
 
         {step === 6 && (
           <div className="py-8 text-center space-y-6 animate-scale-up flex-1 flex flex-col justify-center items-center">
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-emerald-500 w-fit animate-pulse">
+            <div className="p-4 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-emerald-500 w-fit">
               <CheckCircle2 className="w-14 h-14" />
             </div>
             

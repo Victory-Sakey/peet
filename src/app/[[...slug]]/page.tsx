@@ -13,7 +13,6 @@ import { Pricing } from "@/components/public/Pricing";
 import { Auth } from "@/components/public/Auth";
 
 // Logged In App Workspace components
-import { Navbar as AppNavbar } from "@/components/Navbar";
 import { SearchTab } from "@/components/SearchTab";
 import { SeekerTab } from "@/components/SeekerTab";
 import { ProviderTab } from "@/components/ProviderTab";
@@ -77,23 +76,7 @@ export default function Home() {
       {isDashboard ? (
         /* ================= APPS WORKSPACE (LOGGED IN) ================= */
         <>
-          <AppNavbar activeTab={appActiveTab} setActiveTab={setAppActiveTab} />
-
-          {/* Quick return/logout action bar */}
-          <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-3 flex justify-between items-center text-[10px]">
-            <span className="text-zinc-500 font-bold uppercase tracking-wider flex items-center gap-1">
-              ⚡ Sandbox Demo Environment
-            </span>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold transition-colors border border-red-500/10"
-            >
-              <LogOut className="w-3 h-3" />
-              Sign Out
-            </button>
-          </div>
-
-          <main className="flex-1 w-full pb-12">
+          <main className="w-full">
             {appActiveTab === "seeker" && <SeekerTab />}
             {appActiveTab === "provider" && <ProviderTab />}
             {appActiveTab === "admin" && <AdminTab />}
@@ -107,15 +90,7 @@ export default function Home() {
           <main className="flex-1 w-full pt-14 pb-12">
             {activePage === "home" && <Hero setActivePage={setActivePage} />}
             {activePage === "browse" && (
-              <div className="space-y-4 pt-4">
-                <div className="max-w-7xl mx-auto px-4">
-                  <button
-                    onClick={() => setActivePage("home")}
-                    className="inline-flex items-center gap-1 text-[10px] font-bold text-zinc-500 hover:text-purple-600 transition-colors"
-                  >
-                    <ArrowLeft className="w-3 h-3" /> Back to Marketing
-                  </button>
-                </div>
+              <div className="animate-fade-in">
                 {/* SearchTab acts as Browse Opportunities in visitor mode */}
                 <SearchTab />
               </div>
@@ -125,15 +100,7 @@ export default function Home() {
             {activePage === "login" && <Auth initialTab="login" setActivePage={setActivePage} />}
             {activePage === "signup" && <Auth initialTab="signup" setActivePage={setActivePage} />}
             {activePage === "post-opportunity" && (
-              <div className="space-y-4 pt-4 animate-fade-in">
-                <div className="max-w-7xl mx-auto px-4">
-                  <button
-                    onClick={() => setActivePage("home")}
-                    className="inline-flex items-center gap-1 text-[10px] font-bold text-zinc-500 hover:text-purple-600 transition-colors"
-                  >
-                    <ArrowLeft className="w-3 h-3" /> Back to Marketing
-                  </button>
-                </div>
+              <div className="animate-fade-in">
                 <PostOpportunityPage />
               </div>
             )}
@@ -141,122 +108,93 @@ export default function Home() {
         </>
       )}
 
-      {/* Global Footer */}
-      <footer className="w-full border-t border-purple-950/80 bg-[#0c0817] mt-auto pt-16 pb-12 z-10 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-purple-950/60">
-            {/* Logo and Tagline */}
-            <div className="md:col-span-5 space-y-4">
-              <div className="flex items-center gap-2.5">
+      {/* Global Footer (Hidden in Dashboard) */}
+      {!isDashboard && (
+        <footer className="w-full bg-[#05030a] relative overflow-hidden mt-auto pt-20 pb-10 z-10 border-t border-white/5">
+        {/* Ambient Footer Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-600/10 rounded-[100%] blur-[100px] pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/5">
+            {/* Brand & Tagline */}
+            <div className="md:col-span-5 space-y-6">
+              <div className="flex items-center gap-4">
                 <Image
                   src="/peet_logo.jpg"
                   alt="PEET Logo"
-                  width={32}
-                  height={32}
-                  className="rounded-lg object-cover border border-purple-500/20 shadow-md"
+                  width={44}
+                  height={44}
+                  className="rounded-xl object-cover border border-white/10 shadow-lg shadow-purple-500/20"
                 />
-                <span className="text-xl font-extrabold tracking-tight text-white">
+                <span className="text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white to-zinc-400">
                   PEET
                 </span>
               </div>
-              <p className="text-sm text-purple-200/65 max-w-sm leading-relaxed font-semibold">
+              <p className="text-zinc-400 leading-relaxed font-medium max-w-sm">
                 The unified platform for work, education, and career growth. Navigating your future is no longer a straight line—it's a network of possibilities.
               </p>
-              {/* Interactive status indicator */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>All systems operational</span>
+            </div>
+
+            {/* Links Area */}
+            <div className="md:col-span-7 flex flex-wrap gap-12 md:justify-end lg:gap-24">
+              {/* Column 1 */}
+              <div className="space-y-6">
+                <h4 className="text-white font-bold tracking-wide">Platform</h4>
+                <ul className="space-y-4">
+                  {[
+                    { label: "Browse Opportunities", page: "browse" },
+                    { label: "Post Opportunity", page: "post-opportunity" },
+                  ].map((link, idx) => (
+                    <li key={idx}>
+                      <button
+                        onClick={() => setActivePage(link.page)}
+                        className="text-zinc-400 hover:text-purple-400 transition-colors font-medium cursor-pointer"
+                      >
+                        {link.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
 
-            {/* Quick Links Column */}
-            <div className="col-span-6 md:col-span-2 md:col-start-7 space-y-4">
-              <h4 className="text-xs font-extrabold uppercase tracking-widest text-purple-300">
-                Platform
-              </h4>
-              <ul className="space-y-2.5">
-                {[
-                  { label: "Home", page: "home" },
-                  { label: "Browse Listings", page: "browse" },
-                  { label: "AI Career Suite", page: "ai-suite" },
-                  { label: "Pricing Plans", page: "pricing" }
-                ].map((link, idx) => (
-                  <li key={idx}>
-                    <button
-                      onClick={() => setActivePage(link.page)}
-                      className="text-sm font-semibold text-purple-200/60 hover:text-purple-400 transition-colors text-left cursor-pointer"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Resources Column */}
-            <div className="col-span-6 md:col-span-2 space-y-4">
-              <h4 className="text-xs font-extrabold uppercase tracking-widest text-purple-300">
-                Resources
-              </h4>
-              <ul className="space-y-2.5">
-                {[
-                  { label: "Help Center", page: "home" },
-                  { label: "ATS Guidelines", page: "home" },
-                  { label: "Documentation", page: "home" },
-                  { label: "API Reference", page: "home" }
-                ].map((link, idx) => (
-                  <li key={idx}>
-                    <button
-                      onClick={() => setActivePage(link.page)}
-                      className="text-sm font-semibold text-purple-200/60 hover:text-purple-400 transition-colors text-left cursor-pointer"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Company Column */}
-            <div className="col-span-6 md:col-span-2 space-y-4">
-              <h4 className="text-xs font-extrabold uppercase tracking-widest text-purple-300">
-                Company
-              </h4>
-              <ul className="space-y-2.5">
-                {[
-                  { label: "About Us", page: "home" },
-                  { label: "Careers", page: "home" },
-                  { label: "Privacy Policy", page: "home" },
-                  { label: "Terms of Service", page: "home" }
-                ].map((link, idx) => (
-                  <li key={idx}>
-                    <button
-                      onClick={() => setActivePage(link.page)}
-                      className="text-sm font-semibold text-purple-200/60 hover:text-purple-400 transition-colors text-left cursor-pointer"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              {/* Column 2 */}
+              <div className="space-y-6">
+                <h4 className="text-white font-bold tracking-wide">Company</h4>
+                <ul className="space-y-4">
+                  {[
+                    { label: "About Peet", page: "home" },
+                    { label: "Contact", page: "home" },
+                    { label: "Terms & Privacy", page: "home" }
+                  ].map((link, idx) => (
+                    <li key={idx}>
+                      <button
+                        onClick={() => setActivePage(link.page)}
+                        className="text-zinc-400 hover:text-purple-400 transition-colors font-medium cursor-pointer"
+                      >
+                        {link.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
           {/* Bottom copyright area */}
-          <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-purple-300/40">
+          <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm font-medium text-zinc-500">
             <div>
-              © {new Date().getFullYear()} PEET AI. Real-time matching index & ATS developer portfolios.
+              © {new Date().getFullYear()} PEET AI. All rights reserved.
             </div>
-            <div className="flex gap-4">
-              <span className="hover:text-purple-300 cursor-pointer">Security</span>
-              <span>•</span>
-              <span className="hover:text-purple-300 cursor-pointer">Status</span>
-              <span>•</span>
-              <span className="hover:text-purple-300 cursor-pointer">Cookies</span>
+            <div className="flex gap-6">
+              <span className="hover:text-purple-400 transition-colors cursor-pointer">Security</span>
+              <span className="hover:text-purple-400 transition-colors cursor-pointer">Status</span>
+              <span className="hover:text-purple-400 transition-colors cursor-pointer">Cookies</span>
             </div>
           </div>
         </div>
       </footer>
+      )}
     </div>
   );
 }

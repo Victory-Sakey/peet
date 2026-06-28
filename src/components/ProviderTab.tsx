@@ -489,7 +489,7 @@ export const ProviderTab: React.FC = () => {
             <h3 className="font-bold text-sm text-zinc-700 dark:text-zinc-800">Public Preview</h3>
             <div className="p-4 bg-zinc-50 dark:bg-zinc-100 dark:bg-zinc-100/60 rounded-2xl border border-purple-500/5 space-y-3">
               <div className="flex gap-3 items-center">
-                <div className="w-12 h-12 bg-purple-600 text-white flex items-center justify-center text-xl font-bold rounded-xl shadow-lg animate-pulse">
+                <div className="w-12 h-12 bg-purple-600 text-white flex items-center justify-center text-xl font-bold rounded-xl shadow-lg">
                   {companyName ? companyName.charAt(0) : "P"}
                 </div>
                 <div>

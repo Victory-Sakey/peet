@@ -133,7 +133,7 @@ export const MatchingTab: React.FC = () => {
       {/* Page Title */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-1.5 bg-purple-600/10 text-purple-600 dark:text-purple-700 px-3 py-1 rounded-xl text-xs font-bold mb-1">
-          <Sparkles className="w-3.5 h-3.5 fill-purple-600 dark:fill-transparent animate-pulse" />
+          <Sparkles className="w-3.5 h-3.5 fill-purple-600 dark:fill-transparent" />
           AI Smart Matching Hub
         </div>
         <h1 className="text-3xl font-extrabold tracking-tight">
@@ -271,7 +271,7 @@ export const MatchingTab: React.FC = () => {
             </form>
 
             {statusMessage && (
-              <div className="text-center text-[10px] font-bold text-purple-600 dark:text-purple-700 bg-purple-600/10 p-2 rounded-lg transition-all animate-pulse">
+              <div className="text-center text-[10px] font-bold text-purple-600 dark:text-purple-700 bg-purple-600/10 p-2 rounded-lg transition-all">
                 {statusMessage}
               </div>
             )}

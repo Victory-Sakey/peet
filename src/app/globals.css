@@ -35,7 +35,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  ---slow: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
   /* Custom shades to support existing codebase classes and keep them vibrant */
   --color-zinc-250: #dedee3;
